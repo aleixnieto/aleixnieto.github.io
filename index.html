@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="author" content="Aleix Nieto Juscafresa" />
+  <meta name="description" content="PhD Student in Machine Learning at Uppsala University, Sweden." />
+  <title>Aleix Nieto Juscafresa</title>
+
+  <!-- Fonts: Inter (with a robust system fallback if offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --text: #1f2328;
+      --text-soft: #57606a;
+      --text-faint: #8b949e;
+      --line: #e7e9ec;
+      --accent: #3949ab;       /* indigo */
+      --accent-hover: #2b388a;
+      --max: 760px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --surface: #0d1117;
+        --text: #e6edf3;
+        --text-soft: #9aa5b1;
+        --text-faint: #6e7681;
+        --line: #21262d;
+        --accent: #93a1ff;
+        --accent-hover: #b8c2ff;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+    a:hover { color: var(--accent-hover); }
+
+    /* Visible keyboard focus */
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ---------- Navigation ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(160%) blur(8px);
+      -webkit-backdrop-filter: saturate(160%) blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-name {
+      font-weight: 600;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 0.95rem;
+    }
+    .nav-links a { color: var(--text-soft); }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.current { color: var(--text); font-weight: 500; }
+
+    /* ---------- Layout ---------- */
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 56px 24px 24px;
+    }
+
+    .headline { margin-bottom: 36px; }
+    h1 {
+      font-size: 2.55rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin: 0 0 8px;
+    }
+    .role {
+      margin: 0;
+      font-size: 1.18rem;
+      font-weight: 400;
+      color: var(--text-soft);
+    }
+
+    /* Profile image floats right, bio wraps — like the reference site */
+    .profile {
+      float: right;
+      width: 230px;
+      max-width: 42%;
+      height: auto;
+      border-radius: 8px;
+      margin: 4px 0 16px 32px;
+      border: 1px solid var(--line);
+    }
+
+    .bio p { margin: 0 0 18px; }
+    .bio { overflow: visible; }
+
+    /* ---------- Social row ---------- */
+    .social {
+      clear: both;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 18px;
+      margin-top: 8px;
+    }
+    .social a {
+      color: var(--text-soft);
+      display: inline-flex;
+      line-height: 0;
+    }
+    .social a:hover { color: var(--accent); }
+    .social svg { width: 21px; height: 21px; }
+
+    /* ---------- Sections ---------- */
+    .section {
+      border-top: 1px solid var(--line);
+      margin-top: 52px;
+      padding-top: 40px;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 22px;
+    }
+
+    /* ---------- Publications ---------- */
+    .pub {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 4px 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .pub:first-of-type { padding-top: 0; }
+    .pub:last-child { border-bottom: 0; }
+    .pub-year {
+      color: var(--text-faint);
+      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums;
+      padding-top: 3px;
+    }
+    .pub-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: inline-block;
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+    .pub-authors { color: var(--text); font-size: 0.97rem; }
+    .pub-authors .me { font-weight: 700; }
+    .pub-venue {
+      color: var(--text-soft);
+      font-size: 0.93rem;
+      font-style: italic;
+      margin-top: 3px;
+    }
+    .pub-links {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pub-links a {
+      font-size: 0.82rem;
+      color: var(--accent);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 12px;
+    }
+    .pub-links a:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 9%, transparent);
+    }
+    .pub-note {
+      color: var(--text-faint);
+      font-size: 0.82rem;
+      margin-top: 10px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      max-width: var(--max);
+      margin: 52px auto 0;
+      padding: 40px 24px 56px;
+      color: var(--text-faint);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--line);
+    }
+    footer a { color: var(--text-faint); border-bottom: 1px solid var(--line); }
+    footer a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      h1 { font-size: 2.05rem; }
+      main { padding-top: 40px; }
+      .profile {
+        float: none;
+        display: block;
+        margin: 0 auto 26px;
+        width: 180px;
+        max-width: 60%;
+      }
+      .headline { text-align: center; }
+      .pub { grid-template-columns: 1fr; gap: 2px; }
+      .pub-year { padding-top: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================================
+       HOW TO PUBLISH
+       1. Keep this file named  index.html
+       2. Put it together with squared.jpg in a repo named
+          aleixnieto.github.io  (in the repo root)
+       3. Your site goes live at  https://aleixnieto.github.io/
+       (Your GitHub README already links here, so it will just work.)
+  ============================================================ -->
+
+  <header class="nav">
+    <div class="nav-inner">
+      <span class="nav-name">Aleix Nieto Juscafresa</span>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about" class="current">about</a>
+        <a href="#publications">publications</a>
+        <a href="https://github.com/aleixnieto" target="_blank" rel="noopener">github</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="headline">
+      <h1>Aleix Nieto Juscafresa</h1>
+      <p class="role">PhD Student in Machine Learning.</p>
+    </section>
+
+    <section class="bio">
+      <img class="profile" src="squared.jpg" alt="Aleix Nieto Juscafresa" />
+
+      <p>
+        I am a PhD student in Machine Learning at the Division of Systems and Control,
+        <a href="https://www.it.uu.se/" target="_blank" rel="noopener">Department of Information Technology</a>,
+        Uppsala University, supervised by
+        <a href="https://www.uu.se/kontakt-och-organisation/personal?query=N20-971" target="_blank" rel="noopener">Jens Sjölund</a>.
+        I am a WASP PhD student in the
+        <a href="https://wasp-sweden.org/graduate-school/" target="_blank" rel="noopener">WASP Graduate School</a>
+        (ML/X track, 2026 cohort) &mdash; the Wallenberg AI, Autonomous Systems and Software Program,
+        Sweden&rsquo;s largest research program, funded by the Knut and Alice Wallenberg Foundation.
+        My doctoral research centers on machine learning for medical applications, with my current
+        work focused on a breast cancer project.
+      </p>
+
+      <p>
+        I hold a BSc in Mathematics from the
+        <a href="https://www.ub.edu/" target="_blank" rel="noopener">University of Barcelona</a>,
+        with a minor in Statistics, and an MSc in Data Science (Machine Learning and Statistics)
+        from Uppsala University. For my master&rsquo;s thesis I developed graph neural network-based
+        preconditioners to accelerate the GMRES algorithm &mdash; work I later continued as a research
+        assistant in the same group, leading to a publication at the Northern Lights Deep Learning
+        Conference (NLDL).
+      </p>
+
+      <p>
+        Before starting my PhD, I spent a year at
+        <a href="https://www.kth.se/" target="_blank" rel="noopener">KTH Royal Institute of Technology</a>
+        as a research engineer in the Division of Robotics, Perception and Learning, where I worked on
+        a computer vision project: developing diffusion-based generative models for plankton image
+        classification within a marine environmental research project.
+      </p>
+
+      <p>
+        In my free time I enjoy hiking, travelling, and football.
+      </p>
+
+      <div class="social">
+        <!-- Email -->
+        <a href="mailto:aleixnieto@gmail.com" title="Email" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2.5" y="4.5" width="19" height="15" rx="2"/>
+            <path d="M3 6l9 6 9-6"/>
+          </svg>
+        </a>
+
+        <!-- Google Scholar -->
+        <a href="https://scholar.google.com/citations?user=vavacbAAAAAJ&amp;hl=ca" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 1L1 7l11 6 9-4.91V15h2V7L12 1z"/>
+            <path d="M5 13.18v3.91L12 21l7-3.91v-3.91l-7 3.82-7-3.82z"/>
+          </svg>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/aleixnieto" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/aleixnieto" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <section id="publications" class="section">
+      <h2>Publications</h2>
+
+      <div class="pub">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <a class="pub-title" href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Learning incomplete factorization preconditioners for GMRES</a>
+          <div class="pub-authors">Paul Häusner*, <span class="me">Aleix Nieto Juscafresa</span>*, Jens Sjölund</div>
+          <div class="pub-venue">Proceedings of the 6th Northern Lights Deep Learning Conference (NLDL), PMLR 265:85&ndash;99, 2025</div>
+          <div class="pub-links">
+            <a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Proceedings</a>
+            <a href="https://arxiv.org/abs/2409.08262" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://github.com/paulhausner/neural-incomplete-factorization" target="_blank" rel="noopener">Code</a>
+          </div>
+          <div class="pub-note">* Equal contribution.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2026 Aleix Nieto Juscafresa. Built with HTML &amp; CSS, hosted on
+    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>.
+    Last updated: June 14, 2026.
+  </footer>
+</body>
+</html>
