@@ -7,6 +7,8 @@
   <meta name="description" content="PhD Student in Machine Learning at Uppsala University — machine learning for breast cancer." />
   <title>Aleix Nieto Juscafresa</title>
 
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232541b2'/%3E%3Ctext x='50' y='55' font-family='Georgia,serif' font-style='italic' font-size='62' fill='%23ffffff' text-anchor='middle' dominant-baseline='central'%3EA%3C/text%3E%3C/svg%3E" />
+
   <!-- Enable view-switching styles only when JS is available (progressive enhancement) -->
   <script>document.documentElement.classList.add('js');</script>
 
@@ -30,23 +32,22 @@
       --accent-soft: rgba(37, 65, 178, 0.09);
       --arxiv: #b31b1b;
       --arxiv-soft: rgba(179, 27, 27, 0.09);
+      --glow: rgba(37, 65, 178, 0.05);
       --max: 760px;
     }
-
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121316;
-        --surface: #16181c;
-        --text: #eceae3;
-        --text-soft: #a6a39b;
-        --text-faint: #6f6e68;
-        --line: #2a2c30;
-        --accent: #aab6ff;
-        --accent-hover: #c6ceff;
-        --accent-soft: rgba(170, 182, 255, 0.14);
-        --arxiv: #ff9a9a;
-        --arxiv-soft: rgba(255, 154, 154, 0.13);
+      :root:not([data-theme="light"]) {
+        --bg: #121316; --surface: #16181c; --text: #eceae3; --text-soft: #a6a39b;
+        --text-faint: #6f6e68; --line: #2a2c30; --accent: #aab6ff; --accent-hover: #c6ceff;
+        --accent-soft: rgba(170, 182, 255, 0.14); --arxiv: #ff9a9a; --arxiv-soft: rgba(255, 154, 154, 0.13);
+        --glow: rgba(170, 182, 255, 0.06);
       }
+    }
+    :root[data-theme="dark"] {
+      --bg: #121316; --surface: #16181c; --text: #eceae3; --text-soft: #a6a39b;
+      --text-faint: #6f6e68; --line: #2a2c30; --accent: #aab6ff; --accent-hover: #c6ceff;
+      --accent-soft: rgba(170, 182, 255, 0.14); --arxiv: #ff9a9a; --arxiv-soft: rgba(255, 154, 154, 0.13);
+      --glow: rgba(170, 182, 255, 0.06);
     }
 
     * { box-sizing: border-box; }
@@ -61,124 +62,114 @@
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(58rem 38rem at 50% -12%, var(--glow), transparent 70%);
+      pointer-events: none;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.18s ease;
-    }
+    ::selection { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.18s ease; }
     a:hover { color: var(--accent-hover); }
     a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
     /* ---------- Navigation ---------- */
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: color-mix(in srgb, var(--bg) 84%, transparent);
-      backdrop-filter: saturate(170%) blur(11px);
-      -webkit-backdrop-filter: saturate(170%) blur(11px);
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: saturate(170%) blur(12px);
+      -webkit-backdrop-filter: saturate(170%) blur(12px);
       border-bottom: 1px solid var(--line);
+      transition: border-color 0.4s ease, background-color 0.4s ease;
     }
     .nav-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 24px;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      max-width: var(--max); margin: 0 auto; padding: 17px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
     }
-    .nav-name {
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: 1.22rem;
-      letter-spacing: 0.01em;
-      color: var(--text);
-    }
+    .nav-name { font-family: var(--serif); font-weight: 500; font-size: 1.24rem; letter-spacing: 0.01em; color: var(--text); }
     .nav-name:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; gap: 27px; font-size: 0.95rem; }
-    .nav-links a { color: var(--text-soft); position: relative; padding-bottom: 4px; }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a.current { color: var(--text); }
-    .nav-links a.current::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
+    .nav-links a { color: var(--text-soft); position: relative; padding-bottom: 5px; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+      background: var(--accent); border-radius: 2px;
+      transform: scaleX(0); transform-origin: center; transition: transform 0.28s cubic-bezier(.2,.7,.2,1);
     }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.current { color: var(--text); }
+    .nav-links a.current::after { transform: scaleX(1); }
+
+    .theme-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; padding: 0;
+      border: 1px solid var(--line); border-radius: 999px;
+      background: transparent; color: var(--text-soft); cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .theme-toggle svg { width: 17px; height: 17px; }
+    .icon-sun { display: none; }
+    .icon-moon { display: inline; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .icon-sun { display: inline; }
+      :root:not([data-theme="light"]) .icon-moon { display: none; }
+    }
+    :root[data-theme="dark"] .icon-sun { display: inline; }
+    :root[data-theme="dark"] .icon-moon { display: none; }
+    :root[data-theme="light"] .icon-sun { display: none; }
+    :root[data-theme="light"] .icon-moon { display: inline; }
 
     /* ---------- Layout & views ---------- */
-    main { max-width: var(--max); margin: 0 auto; padding: 66px 24px 24px; }
+    main { max-width: var(--max); margin: 0 auto; padding: 68px 24px 24px; }
 
     .view { display: block; }
     .view + .view { margin-top: 60px; padding-top: 46px; border-top: 1px solid var(--line); }
     .js .view { display: none; }
     .js .view + .view { margin-top: 0; padding-top: 0; border-top: 0; }
-    .js .view.active { display: block; animation: fade 0.4s ease; }
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: none; }
-    }
+    .js .view.active { display: block; }
 
-    h1 {
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: 3rem;
-      line-height: 1.07;
-      letter-spacing: -0.012em;
-      margin: 0;
-      color: var(--text);
-    }
-    .subtitle {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 1.32rem;
-      color: var(--text-soft);
-      margin: 8px 0 0;
-    }
+    h1 { font-family: var(--serif); font-weight: 500; font-size: 3.15rem; line-height: 1.06; letter-spacing: -0.014em; margin: 0; color: var(--text); }
+    .subtitle { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.33rem; color: var(--text-soft); margin: 8px 0 0; }
     .subtitle a { color: var(--accent); }
 
-    .page-head { margin-bottom: 38px; }
+    .page-head { margin-bottom: 42px; }
+    .page-head::before {
+      content: ""; display: block; width: 38px; height: 3px; border-radius: 3px;
+      background: var(--accent); margin-bottom: 22px;
+    }
 
     /* ---------- About hero ---------- */
-    .hero {
-      display: flex;
-      align-items: center;
-      gap: 42px;
-      margin-bottom: 42px;
-    }
+    .hero { display: flex; align-items: center; gap: 44px; margin-bottom: 44px; }
     .hero-text { flex: 1 1 auto; min-width: 0; }
     .portrait {
-      flex: 0 0 auto;
-      width: 208px;
-      height: 208px;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      box-shadow: 0 16px 44px rgba(20, 22, 30, 0.14);
+      flex: 0 0 auto; width: 212px; height: 212px; object-fit: cover;
+      border-radius: 16px; border: 1px solid var(--line);
+      box-shadow: 0 18px 48px rgba(20, 22, 30, 0.15);
     }
 
     /* ---------- Bio (justified, tightened) ---------- */
     .bio p {
-      margin: 0 0 18px;
-      line-height: 1.8;
-      text-align: justify;
-      text-align-last: left;
-      -webkit-hyphens: auto;
-      hyphens: auto;
-      hyphenate-limit-chars: 7 3 3;
+      margin: 0 0 18px; line-height: 1.8;
+      text-align: justify; text-align-last: left;
+      -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 7 3 3;
       word-spacing: -0.012em;
     }
     .bio p:last-child { margin-bottom: 0; }
+    .bio a { border-bottom: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); }
+    .bio a:hover { border-color: var(--accent); }
 
     /* ---------- Social ---------- */
-    .social { display: flex; align-items: center; gap: 21px; margin-top: 22px; }
+    .social { display: flex; align-items: center; gap: 21px; margin-top: 24px; }
     .social a { color: var(--text-soft); display: inline-flex; line-height: 0; }
     .social a:hover { color: var(--accent); transform: translateY(-2px) scale(1.06); }
     .social svg { width: 30px; height: 30px; }
@@ -186,142 +177,106 @@
     /* ---------- Publications (timeline) ---------- */
     .pubs { margin-top: 4px; }
     .pub { display: grid; grid-template-columns: 50px 1fr; column-gap: 26px; }
-    .pub-year {
-      text-align: right;
-      font-size: 0.87rem;
-      color: var(--text-faint);
-      font-variant-numeric: tabular-nums;
-      padding-top: 28px;
-    }
-    .pub-main {
-      position: relative;
-      padding: 28px 0 28px 30px;
-      border-left: 1px solid var(--line);
-    }
+    .pub-year { text-align: right; font-size: 0.87rem; color: var(--text-faint); font-variant-numeric: tabular-nums; padding-top: 28px; }
+    .pub-main { position: relative; padding: 28px 0 28px 30px; border-left: 1px solid var(--line); transition: border-color 0.4s ease; }
     .pub-main::before {
-      content: "";
-      position: absolute;
-      left: -5.5px;
-      top: 33px;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px var(--bg);
+      content: ""; position: absolute; left: -5.5px; top: 33px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
+      transition: transform 0.25s ease, box-shadow 0.4s ease;
     }
+    .pub:hover .pub-main::before { transform: scale(1.32); }
     .pub:first-child .pub-year { padding-top: 6px; }
     .pub:first-child .pub-main { padding-top: 6px; }
     .pub:first-child .pub-main::before { top: 11px; }
     .pub:last-child .pub-main { padding-bottom: 4px; }
 
     .chip {
-      display: inline-block;
-      font-size: 0.69rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 4px 11px;
-      border-radius: 999px;
-      margin-bottom: 12px;
+      display: inline-block; font-size: 0.69rem; font-weight: 600; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 999px; margin-bottom: 12px;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
     .chip.thesis { color: var(--text-soft); background: color-mix(in srgb, var(--text-soft) 13%, transparent); }
     .chip.conf { color: var(--accent); background: var(--accent-soft); }
     .chip.arxiv { color: var(--arxiv); background: var(--arxiv-soft); }
 
-    .pub-title {
-      font-weight: 600;
-      font-size: 1.13rem;
-      line-height: 1.4;
-      letter-spacing: -0.01em;
-      margin: 0 0 7px;
-    }
+    .pub-title { font-weight: 600; font-size: 1.13rem; line-height: 1.4; letter-spacing: -0.01em; margin: 0 0 7px; }
+    .pub-title a { color: var(--text); }
+    .pub-title a:hover { color: var(--accent); }
     .pub-authors { font-size: 0.97rem; color: var(--text-soft); }
     .pub-authors .me { color: var(--text); font-weight: 700; }
     .pub-venue { font-size: 0.93rem; color: var(--text-soft); font-style: italic; margin-top: 4px; }
     .pub-links { margin-top: 14px; display: flex; gap: 9px; flex-wrap: wrap; }
-    .pub-links a {
-      font-size: 0.81rem;
-      font-weight: 500;
-      color: var(--accent);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px 14px;
-    }
-    .pub-links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .pub-links a { font-size: 0.81rem; font-weight: 500; color: var(--accent); border: 1px solid var(--line); border-radius: 999px; padding: 3px 14px; }
+    .pub-links a:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
     .pub-note { font-size: 0.8rem; color: var(--text-faint); margin-top: 12px; }
 
     /* ---------- Teaching ---------- */
     .lede {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      margin: 0 0 4px;
-      text-align: justify;
-      text-align-last: left;
-      -webkit-hyphens: auto;
-      hyphens: auto;
-      hyphenate-limit-chars: 7 3 3;
-      word-spacing: -0.012em;
+      font-size: 1.05rem; line-height: 1.8; margin: 0 0 4px;
+      text-align: justify; text-align-last: left;
+      -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 7 3 3; word-spacing: -0.012em;
     }
-    .courses-head {
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin: 38px 0 4px;
-    }
+    .courses-head { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-faint); margin: 38px 0 4px; }
     .course {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--line); transition: border-color 0.4s ease;
     }
     .course:last-child { border-bottom: 0; }
     .course-name { font-weight: 500; font-size: 1.04rem; }
     .badge {
-      flex: none;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 3px 12px;
-      border-radius: 999px;
-      color: var(--text-soft);
+      flex: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 3px 12px; border-radius: 999px; color: var(--text-soft);
       background: color-mix(in srgb, var(--text-soft) 12%, transparent);
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
     .badge.grad { color: var(--accent); background: var(--accent-soft); }
 
     /* ---------- Footer ---------- */
     footer {
-      max-width: var(--max);
-      margin: 60px auto 0;
-      padding: 38px 24px 56px;
-      color: var(--text-faint);
-      font-size: 0.84rem;
-      border-top: 1px solid var(--line);
+      max-width: var(--max); margin: 60px auto 0; padding: 38px 24px 56px;
+      color: var(--text-faint); font-size: 0.84rem; border-top: 1px solid var(--line);
+      transition: border-color 0.4s ease;
     }
     footer a { color: var(--text-faint); border-bottom: 1px solid var(--line); }
     footer a:hover { color: var(--accent); border-color: var(--accent); }
 
+    /* ---------- Entrance animations ---------- */
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .js #about.active .portrait            { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
+    .js #about.active .hero-text h1        { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .11s; }
+    .js #about.active .hero-text .subtitle { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .18s; }
+    .js #about.active .hero-text .social   { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .25s; }
+    .js #about.active .bio p:nth-child(1)  { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .32s; }
+    .js #about.active .bio p:nth-child(2)  { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .38s; }
+    .js #about.active .bio p:nth-child(3)  { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .44s; }
+    .js #about.active .bio p:nth-child(4)  { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .50s; }
+
+    .js #publications.active .page-head       { animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .02s; }
+    .js #publications.active .pub:nth-child(1){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
+    .js #publications.active .pub:nth-child(2){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
+    .js #publications.active .pub:nth-child(3){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
+    .js #publications.active .pub:nth-child(4){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .35s; }
+
+    .js #teaching.active .page-head                 { animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .02s; }
+    .js #teaching.active .lede                       { animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .12s; }
+    .js #teaching.active .courses-head               { animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .19s; }
+    .js #teaching.active .courses .course:nth-child(1){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .26s; }
+    .js #teaching.active .courses .course:nth-child(2){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .33s; }
+    .js #teaching.active .courses .course:nth-child(3){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .40s; }
+    .js #teaching.active .courses .course:nth-child(4){ animation: rise .55s cubic-bezier(.21,.7,.25,1) both; animation-delay: .47s; }
+
     /* ---------- Mobile ---------- */
     @media (max-width: 600px) {
       body { font-size: 16px; }
-      h1 { font-size: 2.35rem; }
+      h1 { font-size: 2.4rem; }
       .subtitle { font-size: 1.22rem; }
-      main { padding-top: 44px; }
-      .hero {
-        flex-direction: column-reverse;
-        align-items: center;
-        text-align: center;
-        gap: 24px;
-        margin-bottom: 36px;
-      }
-      .portrait { width: 168px; height: 168px; }
+      main { padding-top: 46px; }
+      .hero { flex-direction: column-reverse; align-items: center; text-align: center; gap: 24px; margin-bottom: 38px; }
+      .portrait { width: 170px; height: 170px; }
       .social { justify-content: center; }
       .bio p, .lede { text-align: left; text-align-last: left; }
-
       .pub { grid-template-columns: 1fr; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
       .pub:last-child { border-bottom: 0; }
       .pub-year { text-align: left; padding-top: 22px; margin-bottom: 2px; font-weight: 600; color: var(--text-soft); }
@@ -331,7 +286,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
@@ -347,11 +302,17 @@
   <header class="nav">
     <div class="nav-inner">
       <a class="nav-name" href="#about" data-view="about">Aleix Nieto Juscafresa</a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#about" data-view="about" class="current">about</a>
-        <a href="#publications" data-view="publications">publications</a>
-        <a href="#teaching" data-view="teaching">teaching</a>
-      </nav>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#about" data-view="about" class="current">about</a>
+          <a href="#publications" data-view="publications">publications</a>
+          <a href="#teaching" data-view="teaching">teaching</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -365,26 +326,16 @@
 
           <div class="social">
             <a href="mailto:aleixnieto@gmail.com" title="Email" aria-label="Email">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2.5" y="4.5" width="19" height="15" rx="2"/>
-                <path d="M3 6l9 6 9-6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 6 9-6"/></svg>
             </a>
             <a href="https://scholar.google.com/citations?user=vavacbAAAAAJ&amp;hl=ca" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 1L1 7l11 6 9-4.91V15h2V7L12 1z"/>
-                <path d="M5 13.18v3.91L12 21l7-3.91v-3.91l-7 3.82-7-3.82z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L1 7l11 6 9-4.91V15h2V7L12 1z"/><path d="M5 13.18v3.91L12 21l7-3.91v-3.91l-7 3.82-7-3.82z"/></svg>
             </a>
             <a href="https://github.com/aleixnieto" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
             </a>
             <a href="https://www.linkedin.com/in/aleixnieto" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
             </a>
           </div>
         </div>
@@ -421,9 +372,7 @@
           classification within a marine environmental research project.
         </p>
 
-        <p>
-          In my free time I enjoy hiking, travelling, and football.
-        </p>
+        <p>In my free time I enjoy hiking, travelling, and football.</p>
       </div>
     </section>
 
@@ -439,31 +388,19 @@
       </div>
 
       <div class="pubs">
-        <!-- 2022 — Bachelor thesis -->
+        <!-- 2026 — arXiv preprint (plankton) -->
         <div class="pub">
-          <div class="pub-year">2022</div>
+          <div class="pub-year">2026</div>
           <div class="pub-main">
-            <span class="chip thesis">Thesis</span>
-            <p class="pub-title">An introduction to explainable artificial intelligence with LIME and SHAP</p>
-            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
-            <div class="pub-venue">Bachelor&rsquo;s thesis &middot; University of Barcelona</div>
+            <span class="chip arxiv">arXiv</span>
+            <h3 class="pub-title"><a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">Diffusion representations for fine-grained image classification: a marine plankton case study</a></h3>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span>*, Álvaro Mazcuñán Herreros*, Josephine Sullivan</div>
+            <div class="pub-venue">arXiv:2601.13416</div>
             <div class="pub-links">
-              <a href="https://github.com/aleixnieto/LIME_SHAP" target="_blank" rel="noopener">Code</a>
+              <a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://arxiv.org/pdf/2601.13416" target="_blank" rel="noopener">PDF</a>
             </div>
-          </div>
-        </div>
-
-        <!-- 2024 — Master thesis -->
-        <div class="pub">
-          <div class="pub-year">2024</div>
-          <div class="pub-main">
-            <span class="chip thesis">Thesis</span>
-            <p class="pub-title">Graph neural network-based preconditioners for optimizing GMRES</p>
-            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
-            <div class="pub-venue">Master&rsquo;s thesis &middot; Uppsala University</div>
-            <div class="pub-links">
-              <a href="https://github.com/aleixnieto/master_thesis" target="_blank" rel="noopener">Code</a>
-            </div>
+            <div class="pub-note">* Equal contribution.</div>
           </div>
         </div>
 
@@ -472,7 +409,7 @@
           <div class="pub-year">2025</div>
           <div class="pub-main">
             <span class="chip conf">NLDL 2025</span>
-            <p class="pub-title">Learning incomplete factorization preconditioners for GMRES</p>
+            <h3 class="pub-title"><a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Learning incomplete factorization preconditioners for GMRES</a></h3>
             <div class="pub-authors">Paul Häusner*, <span class="me">Aleix Nieto Juscafresa</span>*, Jens Sjölund</div>
             <div class="pub-venue">Northern Lights Deep Learning Conference (NLDL) &middot; PMLR 265:85&ndash;99</div>
             <div class="pub-links">
@@ -484,19 +421,33 @@
           </div>
         </div>
 
-        <!-- 2026 — arXiv preprint (plankton) -->
+        <!-- 2024 — Master thesis -->
         <div class="pub">
-          <div class="pub-year">2026</div>
+          <div class="pub-year">2024</div>
           <div class="pub-main">
-            <span class="chip arxiv">arXiv</span>
-            <p class="pub-title">Diffusion representations for fine-grained image classification: a marine plankton case study</p>
-            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span>*, Álvaro Mazcuñán Herreros*, Josephine Sullivan</div>
-            <div class="pub-venue">arXiv:2601.13416</div>
+            <span class="chip thesis">Thesis</span>
+            <h3 class="pub-title"><a href="https://uu.diva-portal.org/smash/record.jsf?pid=diva2:1914534" target="_blank" rel="noopener">Graph neural network-based preconditioners for optimizing GMRES</a></h3>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
+            <div class="pub-venue">Master&rsquo;s thesis &middot; Uppsala University</div>
             <div class="pub-links">
-              <a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">arXiv</a>
-              <a href="https://arxiv.org/pdf/2601.13416" target="_blank" rel="noopener">PDF</a>
+              <a href="https://uu.diva-portal.org/smash/record.jsf?pid=diva2:1914534" target="_blank" rel="noopener">Thesis</a>
+              <a href="https://github.com/aleixnieto/master_thesis" target="_blank" rel="noopener">Code</a>
             </div>
-            <div class="pub-note">* Equal contribution.</div>
+          </div>
+        </div>
+
+        <!-- 2022 — Bachelor thesis -->
+        <div class="pub">
+          <div class="pub-year">2022</div>
+          <div class="pub-main">
+            <span class="chip thesis">Thesis</span>
+            <h3 class="pub-title"><a href="https://diposit.ub.edu/dspace/handle/2445/192075" target="_blank" rel="noopener">An introduction to explainable artificial intelligence with LIME and SHAP</a></h3>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
+            <div class="pub-venue">Bachelor&rsquo;s thesis &middot; University of Barcelona</div>
+            <div class="pub-links">
+              <a href="https://diposit.ub.edu/dspace/handle/2445/192075" target="_blank" rel="noopener">Thesis</a>
+              <a href="https://github.com/aleixnieto/LIME_SHAP" target="_blank" rel="noopener">Code</a>
+            </div>
           </div>
         </div>
       </div>
@@ -516,21 +467,11 @@
 
       <div class="courses-head">Courses</div>
 
-      <div class="course">
-        <span class="course-name">Advanced Probabilistic Machine Learning</span>
-        <span class="badge grad">Graduate</span>
-      </div>
-      <div class="course">
-        <span class="course-name">Statistical Machine Learning</span>
-        <span class="badge grad">Graduate</span>
-      </div>
-      <div class="course">
-        <span class="course-name">Introduction to Machine Learning</span>
-        <span class="badge">Undergraduate</span>
-      </div>
-      <div class="course">
-        <span class="course-name">Scientific Computing for Data Analysis</span>
-        <span class="badge">Undergraduate</span>
+      <div class="courses">
+        <div class="course"><span class="course-name">Advanced Probabilistic Machine Learning</span><span class="badge grad">Graduate</span></div>
+        <div class="course"><span class="course-name">Statistical Machine Learning</span><span class="badge grad">Graduate</span></div>
+        <div class="course"><span class="course-name">Introduction to Machine Learning</span><span class="badge">Undergraduate</span></div>
+        <div class="course"><span class="course-name">Scientific Computing for Data Analysis</span><span class="badge">Undergraduate</span></div>
       </div>
     </section>
   </main>
@@ -543,36 +484,37 @@
 
   <script>
     (function () {
-      var views = ["about", "publications", "teaching"];
+      var root = document.documentElement;
 
+      /* ----- Theme toggle (no storage; overrides system for the session) ----- */
+      var toggle = document.querySelector(".theme-toggle");
+      function systemDark() { return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches; }
+      function effectiveTheme() { var t = root.getAttribute("data-theme"); return t ? t : (systemDark() ? "dark" : "light"); }
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          root.setAttribute("data-theme", effectiveTheme() === "dark" ? "light" : "dark");
+        });
+      }
+
+      /* ----- View switching ----- */
+      var views = ["about", "publications", "teaching"];
       function show(id) {
         if (views.indexOf(id) === -1) id = "about";
         var sections = document.querySelectorAll(".view");
-        for (var i = 0; i < sections.length; i++) {
-          sections[i].classList.toggle("active", sections[i].id === id);
-        }
+        for (var i = 0; i < sections.length; i++) sections[i].classList.toggle("active", sections[i].id === id);
         var links = document.querySelectorAll(".nav-links a[data-view]");
-        for (var j = 0; j < links.length; j++) {
-          links[j].classList.toggle("current", links[j].getAttribute("data-view") === id);
-        }
+        for (var j = 0; j < links.length; j++) links[j].classList.toggle("current", links[j].getAttribute("data-view") === id);
         window.scrollTo(0, 0);
       }
-
-      function fromHash() {
-        show((location.hash || "#about").replace("#", ""));
-      }
-
+      function fromHash() { show((location.hash || "#about").replace("#", "")); }
       document.addEventListener("click", function (e) {
         var a = e.target.closest("a[data-view]");
         if (!a) return;
         e.preventDefault();
         var id = a.getAttribute("data-view");
-        if (location.hash !== "#" + id) {
-          history.pushState(null, "", "#" + id);
-        }
+        if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
         show(id);
       });
-
       window.addEventListener("popstate", fromHash);
       window.addEventListener("hashchange", fromHash);
       fromHash();
