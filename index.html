@@ -13,7 +13,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -34,7 +34,7 @@
       --arxiv-soft: rgba(179, 27, 27, 0.09);
       --glow: rgba(37, 65, 178, 0.06);
       --shadow: rgba(22, 24, 33, 0.13);
-      --max: 760px;
+      --max: 880px;
     }
     /* Dark only when the visitor chooses it */
     :root[data-theme="dark"] {
@@ -82,20 +82,15 @@
       max-width: var(--max); margin: 0 auto; padding: 17px 24px;
       display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     }
-    .nav-name { font-family: var(--serif); font-weight: 500; font-size: 1.26rem; letter-spacing: 0.01em; color: var(--text); }
+    .nav-name { font-family: var(--serif); font-weight: 500; font-size: 1.26rem; letter-spacing: 0.01em; color: var(--text); transition: opacity 0.3s ease; }
     .nav-name:hover { color: var(--text); }
+    .fn { font-weight: 700; }
+    .nav-name.is-hidden { visibility: hidden; opacity: 0; pointer-events: none; }
     .nav-right { display: flex; align-items: center; gap: 22px; }
     .nav-links { display: flex; gap: 27px; font-size: 0.95rem; }
-    .nav-links a { color: var(--text-soft); position: relative; padding-bottom: 5px; }
-    .nav-links a::after {
-      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
-      background: var(--accent); border-radius: 2px;
-      transform: scaleX(0); transform-origin: center; transition: transform 0.28s cubic-bezier(.2,.7,.2,1);
-    }
+    .nav-links a { color: var(--text-soft); transition: color 0.15s ease; }
     .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-links a.current { color: var(--text); }
-    .nav-links a.current::after { transform: scaleX(1); }
+    .nav-links a.current { color: var(--accent); font-weight: 700; }
 
     .theme-toggle {
       display: inline-flex; align-items: center; justify-content: center;
@@ -121,6 +116,7 @@
     .js .view.active { display: block; }
 
     h1 { font-family: var(--serif); font-weight: 500; font-size: 3.2rem; line-height: 1.05; letter-spacing: -0.016em; margin: 0; color: var(--text); }
+    .hero h1 { white-space: nowrap; }
     .subtitle { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.35rem; color: var(--text-soft); margin: 9px 0 0; }
     .subtitle a { color: var(--accent); }
 
@@ -239,11 +235,18 @@
     .js #teaching.active .courses .course:nth-child(3){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .40s; }
     .js #teaching.active .courses .course:nth-child(4){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .46s; }
 
+    /* ---------- Responsive: stack the hero before a one-line name would crowd ---------- */
+    @media (max-width: 880px) {
+      .hero { flex-direction: column-reverse; align-items: center; text-align: center; gap: 28px; margin-bottom: 42px; }
+      .social { justify-content: center; }
+    }
+
     /* ---------- Mobile ---------- */
     @media (max-width: 620px) {
       body { font-size: 16px; }
       main { padding-top: 46px; min-height: 0; }
       h1 { font-size: 2.4rem; }
+      .hero h1 { white-space: normal; }
       .subtitle { font-size: 1.22rem; }
       .hero { flex-direction: column-reverse; align-items: center; text-align: center; gap: 26px; margin-bottom: 40px; }
       .portrait { width: 172px; height: 172px; }
@@ -273,7 +276,7 @@
 
   <header class="nav">
     <div class="nav-inner">
-      <a class="nav-name" href="#about" data-view="about">Aleix Nieto Juscafresa</a>
+      <a class="nav-name is-hidden" href="#about" data-view="about"><span class="fn">Aleix</span> Nieto Juscafresa</a>
       <div class="nav-right">
         <nav class="nav-links" aria-label="Primary">
           <a href="#about" data-view="about" class="current">about</a>
@@ -293,7 +296,7 @@
     <section class="view active" id="about">
       <div class="hero">
         <div class="hero-text">
-          <h1>Aleix Nieto Juscafresa</h1>
+          <h1><span class="fn">Aleix</span> Nieto Juscafresa</h1>
           <p class="subtitle">PhD Student in Machine Learning.</p>
           <div class="social">
             <a href="mailto:aleixnieto@gmail.com" title="Email" aria-label="Email">
@@ -458,12 +461,14 @@
 
       /* View switching */
       var views = ["about", "publications", "teaching"];
+      var navName = document.querySelector(".nav-name");
       function show(id) {
         if (views.indexOf(id) === -1) id = "about";
         var sections = document.querySelectorAll(".view");
         for (var i = 0; i < sections.length; i++) sections[i].classList.toggle("active", sections[i].id === id);
         var links = document.querySelectorAll(".nav-links a[data-view]");
         for (var j = 0; j < links.length; j++) links[j].classList.toggle("current", links[j].getAttribute("data-view") === id);
+        if (navName) navName.classList.toggle("is-hidden", id === "about");
         window.scrollTo(0, 0);
       }
       function fromHash() { show((location.hash || "#about").replace("#", "")); }
