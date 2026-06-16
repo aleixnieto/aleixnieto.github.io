@@ -20,8 +20,8 @@
       --serif: "Newsreader", Georgia, "Times New Roman", serif;
       --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
+      /* Light is the default theme */
       --bg: #fbfaf7;
-      --bg-2: #f4f2ec;
       --text: #1a1a18;
       --text-soft: #57574f;
       --text-faint: #93928a;
@@ -33,20 +33,13 @@
       --arxiv: #b31b1b;
       --arxiv-soft: rgba(179, 27, 27, 0.09);
       --glow: rgba(37, 65, 178, 0.06);
-      --shadow: rgba(22, 24, 33, 0.14);
+      --shadow: rgba(22, 24, 33, 0.13);
+      --max: 760px;
     }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #100f12; --bg-2: #17161b; --text: #ece9e2; --text-soft: #a5a299;
-        --text-faint: #6e6d67; --line: #272730; --line-strong: #34343f;
-        --accent: #aab6ff; --accent-hover: #c7ceff; --accent-soft: rgba(170, 182, 255, 0.13);
-        --arxiv: #ff9a9a; --arxiv-soft: rgba(255, 154, 154, 0.12);
-        --glow: rgba(150, 160, 255, 0.07); --shadow: rgba(0, 0, 0, 0.5);
-      }
-    }
+    /* Dark only when the visitor chooses it */
     :root[data-theme="dark"] {
-      --bg: #100f12; --bg-2: #17161b; --text: #ece9e2; --text-soft: #a5a299;
-      --text-faint: #6e6d67; --line: #272730; --line-strong: #34343f;
+      --bg: #100f12; --text: #ece9e2; --text-soft: #a5a299; --text-faint: #6e6d67;
+      --line: #272730; --line-strong: #34343f;
       --accent: #aab6ff; --accent-hover: #c7ceff; --accent-soft: rgba(170, 182, 255, 0.13);
       --arxiv: #ff9a9a; --arxiv-soft: rgba(255, 154, 154, 0.12);
       --glow: rgba(150, 160, 255, 0.07); --shadow: rgba(0, 0, 0, 0.5);
@@ -60,24 +53,17 @@
     ::selection { background: color-mix(in srgb, var(--accent) 22%, transparent); }
 
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 17px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: var(--sans); font-size: 17px; line-height: 1.7;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
       transition: background-color 0.45s ease, color 0.45s ease;
     }
-    /* Atmospheric glow */
     body::before {
       content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background: radial-gradient(54rem 36rem at 22% -8%, var(--glow), transparent 68%);
+      background: radial-gradient(54rem 34rem at 50% -10%, var(--glow), transparent 68%);
     }
-    /* Paper grain */
     body::after {
-      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.035;
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
@@ -85,93 +71,73 @@
     a:hover { color: var(--accent-hover); }
     a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
-    /* ---------- Theme toggle (fixed) ---------- */
-    .theme-toggle {
-      position: fixed; top: 18px; right: 20px; z-index: 50;
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 38px; height: 38px; padding: 0;
-      border: 1px solid var(--line); border-radius: 999px;
-      background: color-mix(in srgb, var(--bg) 65%, transparent);
-      backdrop-filter: saturate(160%) blur(9px); -webkit-backdrop-filter: saturate(160%) blur(9px);
-      color: var(--text-soft); cursor: pointer;
-      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.18s ease;
+    /* ---------- Navigation ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: saturate(170%) blur(12px); -webkit-backdrop-filter: saturate(170%) blur(12px);
+      border-bottom: 1px solid var(--line); transition: border-color 0.45s ease, background-color 0.45s ease;
     }
-    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: rotate(-15deg); }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto; padding: 17px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .nav-name { font-family: var(--serif); font-weight: 500; font-size: 1.26rem; letter-spacing: 0.01em; color: var(--text); }
+    .nav-name:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
+    .nav-links { display: flex; gap: 27px; font-size: 0.95rem; }
+    .nav-links a { color: var(--text-soft); position: relative; padding-bottom: 5px; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+      background: var(--accent); border-radius: 2px;
+      transform: scaleX(0); transform-origin: center; transition: transform 0.28s cubic-bezier(.2,.7,.2,1);
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.current { color: var(--text); }
+    .nav-links a.current::after { transform: scaleX(1); }
+
+    .theme-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 35px; height: 35px; padding: 0; border: 1px solid var(--line); border-radius: 999px;
+      background: transparent; color: var(--text-soft); cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.25s ease;
+    }
+    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: rotate(-18deg); }
     .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     .theme-toggle svg { width: 17px; height: 17px; }
     .icon-sun { display: none; }
     .icon-moon { display: inline; }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) .icon-sun { display: inline; }
-      :root:not([data-theme="light"]) .icon-moon { display: none; }
-    }
     :root[data-theme="dark"] .icon-sun { display: inline; }
     :root[data-theme="dark"] .icon-moon { display: none; }
-    :root[data-theme="light"] .icon-sun { display: none; }
-    :root[data-theme="light"] .icon-moon { display: inline; }
 
     /* ---------- Layout ---------- */
-    .layout {
-      max-width: 1140px; margin: 0 auto; padding: 0 40px;
-      display: grid; grid-template-columns: 292px 1fr; gap: 76px;
-    }
-
-    /* ---------- Sidebar ---------- */
-    .sidebar { position: sticky; top: 0; align-self: start; padding: 64px 0; }
-    .identity-link { display: inline-block; line-height: 0; border-radius: 18px; }
-    .portrait {
-      width: 132px; height: 132px; object-fit: cover; display: block;
-      border-radius: 18px; border: 1px solid var(--line);
-      box-shadow: 0 16px 40px var(--shadow);
-      transition: transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.4s ease;
-    }
-    .identity-link:hover .portrait { transform: translateY(-3px); box-shadow: 0 22px 52px var(--shadow); }
-    .name {
-      display: inline-block; font-family: var(--serif); font-weight: 500;
-      font-size: 1.92rem; line-height: 1.1; letter-spacing: -0.012em; color: var(--text);
-      margin-top: 24px;
-    }
-    .name:hover { color: var(--text); }
-    .role { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.1rem; color: var(--text-soft); margin: 9px 0 0; }
-
-    .social { display: flex; align-items: center; gap: 19px; margin-top: 22px; }
-    .social a { color: var(--text-soft); display: inline-flex; line-height: 0; }
-    .social a:hover { color: var(--accent); transform: translateY(-2px) scale(1.07); }
-    .social svg { width: 26px; height: 26px; }
-
-    .site-nav { display: flex; flex-direction: column; gap: 2px; margin-top: 38px; }
-    .site-nav a {
-      position: relative; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.11em;
-      text-transform: uppercase; color: var(--text-soft); padding: 10px 0 10px 20px;
-    }
-    .site-nav a::before {
-      content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%) scaleY(0);
-      width: 3px; height: 19px; border-radius: 3px; background: var(--accent); transform-origin: center;
-      transition: transform 0.3s cubic-bezier(.2,.7,.2,1);
-    }
-    .site-nav a:hover { color: var(--accent); }
-    .site-nav a:hover::before { transform: translateY(-50%) scaleY(0.62); }
-    .site-nav a.current { color: var(--text); }
-    .site-nav a.current::before { transform: translateY(-50%) scaleY(1); }
-
-    /* ---------- Content ---------- */
-    .content { min-width: 0; min-height: 100vh; display: flex; flex-direction: column; padding: 64px 0 0; }
+    main { max-width: var(--max); margin: 0 auto; padding: 66px 24px 0; min-height: calc(100vh - 69px); display: flex; flex-direction: column; }
 
     .view { display: block; }
-    .view + .view { margin-top: 56px; padding-top: 44px; border-top: 1px solid var(--line); }
+    .view + .view { margin-top: 58px; padding-top: 46px; border-top: 1px solid var(--line); }
     .js .view { display: none; }
     .js .view + .view { margin-top: 0; padding-top: 0; border-top: 0; }
     .js .view.active { display: block; }
 
-    .view-head { margin-bottom: 36px; }
-    .view-head::before { content: ""; display: block; width: 36px; height: 3px; border-radius: 3px; background: var(--accent); margin-bottom: 21px; }
-    .view-title { font-family: var(--serif); font-weight: 500; font-size: 2.55rem; line-height: 1.06; letter-spacing: -0.016em; margin: 0; color: var(--text); }
-    .view-sub { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.2rem; color: var(--text-soft); margin: 11px 0 0; }
-    .view-sub a { color: var(--accent); }
+    h1 { font-family: var(--serif); font-weight: 500; font-size: 3.2rem; line-height: 1.05; letter-spacing: -0.016em; margin: 0; color: var(--text); }
+    .subtitle { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.35rem; color: var(--text-soft); margin: 9px 0 0; }
+    .subtitle a { color: var(--accent); }
+
+    .page-head { margin-bottom: 42px; }
+    .page-head::before { content: ""; display: block; width: 38px; height: 3px; border-radius: 3px; background: var(--accent); margin-bottom: 22px; }
+
+    /* ---------- About hero ---------- */
+    .hero { display: flex; align-items: center; gap: 46px; margin-bottom: 46px; }
+    .hero-text { flex: 1 1 auto; min-width: 0; }
+    .portrait {
+      flex: 0 0 auto; width: 218px; height: 218px; object-fit: cover;
+      border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 18px 50px var(--shadow);
+    }
 
     /* ---------- Bio ---------- */
     .bio p {
-      margin: 0 0 19px; line-height: 1.84; font-size: 1.02rem;
+      margin: 0 0 19px; line-height: 1.85; font-size: 1.02rem;
       text-align: justify; text-align-last: left;
       -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 7 3 3; word-spacing: -0.012em;
     }
@@ -179,9 +145,15 @@
     .bio a { border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
     .bio a:hover { border-color: var(--accent); }
 
+    /* ---------- Social ---------- */
+    .social { display: flex; align-items: center; gap: 21px; margin-top: 25px; }
+    .social a { color: var(--text-soft); display: inline-flex; line-height: 0; }
+    .social a:hover { color: var(--accent); transform: translateY(-2px) scale(1.07); }
+    .social svg { width: 30px; height: 30px; }
+
     /* ---------- Publications (timeline) ---------- */
     .pubs { margin-top: 2px; }
-    .pub { display: grid; grid-template-columns: 46px 1fr; column-gap: 26px; }
+    .pub { display: grid; grid-template-columns: 48px 1fr; column-gap: 26px; }
     .pub-year { text-align: right; font-size: 0.86rem; color: var(--text-faint); font-variant-numeric: tabular-nums; padding-top: 28px; }
     .pub-main { position: relative; padding: 28px 0 28px 32px; border-left: 1px solid var(--line); transition: border-color 0.45s ease; }
     .pub-main::before {
@@ -217,7 +189,7 @@
 
     /* ---------- Teaching ---------- */
     .lede {
-      font-size: 1.06rem; line-height: 1.84; margin: 0 0 4px;
+      font-size: 1.06rem; line-height: 1.85; margin: 0 0 4px;
       text-align: justify; text-align-last: left;
       -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 7 3 3; word-spacing: -0.012em;
     }
@@ -237,58 +209,45 @@
     .badge.grad { color: var(--accent); background: var(--accent-soft); }
 
     /* ---------- Footer ---------- */
-    footer { margin-top: auto; padding: 48px 0 40px; color: var(--text-faint); font-size: 0.82rem; }
+    footer { margin-top: auto; padding: 52px 0 40px; color: var(--text-faint); font-size: 0.83rem; }
     footer a { color: var(--text-faint); border-bottom: 1px solid var(--line); }
     footer a:hover { color: var(--accent); border-color: var(--accent); }
 
     /* ---------- Entrance animations ---------- */
     @keyframes rise { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: none; } }
 
-    /* sidebar reveals once on load */
-    .js .identity-link { animation: rise .65s cubic-bezier(.21,.7,.25,1) both; animation-delay: .03s; }
-    .js .name           { animation: rise .65s cubic-bezier(.21,.7,.25,1) both; animation-delay: .10s; }
-    .js .role           { animation: rise .65s cubic-bezier(.21,.7,.25,1) both; animation-delay: .16s; }
-    .js .social         { animation: rise .65s cubic-bezier(.21,.7,.25,1) both; animation-delay: .22s; }
-    .js .site-nav       { animation: rise .65s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
+    .js #about.active .portrait            { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
+    .js #about.active .hero-text h1        { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .11s; }
+    .js #about.active .hero-text .subtitle { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .18s; }
+    .js #about.active .hero-text .social   { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .25s; }
+    .js #about.active .bio p:nth-child(1)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .32s; }
+    .js #about.active .bio p:nth-child(2)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .38s; }
+    .js #about.active .bio p:nth-child(3)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .44s; }
+    .js #about.active .bio p:nth-child(4)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .50s; }
 
-    /* content reveals on each view activation */
-    .js .view.active .view-head { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
-    .js #about.active .bio p:nth-child(1) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
-    .js #about.active .bio p:nth-child(2) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
-    .js #about.active .bio p:nth-child(3) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
-    .js #about.active .bio p:nth-child(4) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .35s; }
-    .js #publications.active .pub:nth-child(1) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
-    .js #publications.active .pub:nth-child(2) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
-    .js #publications.active .pub:nth-child(3) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
-    .js #publications.active .pub:nth-child(4) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .35s; }
-    .js #teaching.active .lede { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
-    .js #teaching.active .courses-head { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
-    .js #teaching.active .courses .course:nth-child(1) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
-    .js #teaching.active .courses .course:nth-child(2) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .34s; }
-    .js #teaching.active .courses .course:nth-child(3) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .40s; }
-    .js #teaching.active .courses .course:nth-child(4) { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .46s; }
+    .js #publications.active .page-head       { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
+    .js #publications.active .pub:nth-child(1){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
+    .js #publications.active .pub:nth-child(2){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
+    .js #publications.active .pub:nth-child(3){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
+    .js #publications.active .pub:nth-child(4){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .35s; }
 
-    /* ---------- Responsive ---------- */
-    @media (max-width: 880px) {
-      .layout { grid-template-columns: 1fr; gap: 0; padding: 0 26px; max-width: 640px; }
-      .sidebar {
-        position: static; align-self: stretch; padding: 60px 0 6px;
-        display: flex; flex-direction: column; align-items: center; text-align: center;
-      }
-      .name { margin-top: 22px; }
-      .social { justify-content: center; }
-      .site-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 24px; margin-top: 26px; }
-      .site-nav a { padding: 5px 0; }
-      .site-nav a::before { left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 2px; transform: scaleX(0); transform-origin: center; }
-      .site-nav a:hover::before, .site-nav a.current::before { transform: scaleX(1); }
-      .content { min-height: auto; padding: 30px 0 0; }
-      footer { text-align: center; padding-top: 40px; }
-    }
+    .js #teaching.active .page-head                 { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
+    .js #teaching.active .lede                       { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
+    .js #teaching.active .courses-head               { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
+    .js #teaching.active .courses .course:nth-child(1){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
+    .js #teaching.active .courses .course:nth-child(2){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .34s; }
+    .js #teaching.active .courses .course:nth-child(3){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .40s; }
+    .js #teaching.active .courses .course:nth-child(4){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .46s; }
 
-    @media (max-width: 600px) {
+    /* ---------- Mobile ---------- */
+    @media (max-width: 620px) {
       body { font-size: 16px; }
-      .view-title { font-size: 2.1rem; }
-      .view-sub { font-size: 1.12rem; }
+      main { padding-top: 46px; min-height: 0; }
+      h1 { font-size: 2.4rem; }
+      .subtitle { font-size: 1.22rem; }
+      .hero { flex-direction: column-reverse; align-items: center; text-align: center; gap: 26px; margin-bottom: 40px; }
+      .portrait { width: 172px; height: 172px; }
+      .social { justify-content: center; }
       .bio p, .lede { text-align: left; text-align-last: left; }
       .pub { grid-template-columns: 1fr; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
       .pub:last-child { border-bottom: 0; }
@@ -312,186 +271,185 @@
        3. Your site goes live at  https://aleixnieto.github.io/
   ============================================================ -->
 
-  <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
-    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
-  </button>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="nav-name" href="#about" data-view="about">Aleix Nieto Juscafresa</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#about" data-view="about" class="current">about</a>
+          <a href="#publications" data-view="publications">publications</a>
+          <a href="#teaching" data-view="teaching">teaching</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
 
-  <div class="layout">
-    <!-- ===================== SIDEBAR ===================== -->
-    <aside class="sidebar">
-      <a class="identity-link" href="#about" data-view="about" aria-label="Home">
+  <main>
+    <!-- ===================== ABOUT ===================== -->
+    <section class="view active" id="about">
+      <div class="hero">
+        <div class="hero-text">
+          <h1>Aleix Nieto Juscafresa</h1>
+          <p class="subtitle">PhD Student in Machine Learning.</p>
+          <div class="social">
+            <a href="mailto:aleixnieto@gmail.com" title="Email" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 6 9-6"/></svg>
+            </a>
+            <a href="https://scholar.google.com/citations?user=vavacbAAAAAJ&amp;hl=ca" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L1 7l11 6 9-4.91V15h2V7L12 1z"/><path d="M5 13.18v3.91L12 21l7-3.91v-3.91l-7 3.82-7-3.82z"/></svg>
+            </a>
+            <a href="https://github.com/aleixnieto" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/aleixnieto" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            </a>
+          </div>
+        </div>
         <img class="portrait" src="squared.jpg" alt="Aleix Nieto Juscafresa" />
-      </a>
-      <a class="name" href="#about" data-view="about">Aleix Nieto Juscafresa</a>
-      <p class="role">PhD Student in Machine Learning.</p>
-
-      <div class="social">
-        <a href="mailto:aleixnieto@gmail.com" title="Email" aria-label="Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 6 9-6"/></svg>
-        </a>
-        <a href="https://scholar.google.com/citations?user=vavacbAAAAAJ&amp;hl=ca" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L1 7l11 6 9-4.91V15h2V7L12 1z"/><path d="M5 13.18v3.91L12 21l7-3.91v-3.91l-7 3.82-7-3.82z"/></svg>
-        </a>
-        <a href="https://github.com/aleixnieto" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/in/aleixnieto" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-        </a>
       </div>
 
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#about" data-view="about" class="current">About</a>
-        <a href="#publications" data-view="publications">Publications</a>
-        <a href="#teaching" data-view="teaching">Teaching</a>
-      </nav>
-    </aside>
-
-    <!-- ===================== CONTENT ===================== -->
-    <main class="content">
-      <!-- About -->
-      <section class="view active" id="about">
-        <header class="view-head"><h2 class="view-title">About</h2></header>
-        <div class="bio">
-          <p>
-            I am a PhD student in Machine Learning at the Division of Systems and Control,
-            <a href="https://www.it.uu.se/" target="_blank" rel="noopener">Department of Information Technology</a>,
-            Uppsala University, supervised by
-            <a href="https://www.uu.se/kontakt-och-organisation/personal?query=N20-971" target="_blank" rel="noopener">Jens Sjölund</a>.
-            I am also a WASP PhD student in the
-            <a href="https://wasp-sweden.org/graduate-school/" target="_blank" rel="noopener">WASP Graduate School</a>
-            (ML/X track, 2026 cohort). My research focuses on machine learning for breast cancer.
-          </p>
-          <p>
-            I hold a BSc in Mathematics from the
-            <a href="https://www.ub.edu/" target="_blank" rel="noopener">University of Barcelona</a>,
-            with a minor in Statistics, and an MSc in Data Science (Machine Learning and Statistics)
-            from Uppsala University. For my master&rsquo;s thesis I developed graph neural network-based
-            preconditioners to accelerate the GMRES algorithm &mdash; work I later continued as a research
-            assistant in the same group, leading to a publication at the Northern Lights Deep Learning
-            Conference (NLDL).
-          </p>
-          <p>
-            Before starting my PhD, I spent a year at
-            <a href="https://www.kth.se/" target="_blank" rel="noopener">KTH Royal Institute of Technology</a>
-            as a research engineer in the Division of Robotics, Perception and Learning, where I worked on
-            a computer vision project: using diffusion-based generative models for plankton image
-            classification within a marine environmental research project.
-          </p>
-          <p>In my free time I enjoy hiking, travelling, and football.</p>
-        </div>
-      </section>
-
-      <!-- Publications -->
-      <section class="view" id="publications">
-        <header class="view-head">
-          <h2 class="view-title">Publications</h2>
-          <p class="view-sub">See also my <a href="https://scholar.google.com/citations?user=vavacbAAAAAJ&amp;hl=ca" target="_blank" rel="noopener">Google&nbsp;Scholar</a> profile.</p>
-        </header>
-
-        <div class="pubs">
-          <!-- 2026 -->
-          <div class="pub">
-            <div class="pub-year">2026</div>
-            <div class="pub-main">
-              <span class="chip arxiv">arXiv</span>
-              <h3 class="pub-title"><a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">Diffusion representations for fine-grained image classification: a marine plankton case study</a></h3>
-              <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span>*, Álvaro Mazcuñán Herreros*, Josephine Sullivan</div>
-              <div class="pub-venue">arXiv:2601.13416</div>
-              <div class="pub-links">
-                <a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://arxiv.org/pdf/2601.13416" target="_blank" rel="noopener">PDF</a>
-              </div>
-              <div class="pub-note">* Equal contribution.</div>
-            </div>
-          </div>
-
-          <!-- 2025 -->
-          <div class="pub">
-            <div class="pub-year">2025</div>
-            <div class="pub-main">
-              <span class="chip conf">NLDL 2025</span>
-              <h3 class="pub-title"><a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Learning incomplete factorization preconditioners for GMRES</a></h3>
-              <div class="pub-authors">Paul Häusner*, <span class="me">Aleix Nieto Juscafresa</span>*, Jens Sjölund</div>
-              <div class="pub-venue">Northern Lights Deep Learning Conference (NLDL) &middot; PMLR 265:85&ndash;99</div>
-              <div class="pub-links">
-                <a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Proceedings</a>
-                <a href="https://arxiv.org/abs/2409.08262" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://github.com/paulhausner/neural-incomplete-factorization" target="_blank" rel="noopener">Code</a>
-              </div>
-              <div class="pub-note">* Equal contribution.</div>
-            </div>
-          </div>
-
-          <!-- 2024 -->
-          <div class="pub">
-            <div class="pub-year">2024</div>
-            <div class="pub-main">
-              <span class="chip thesis">Thesis</span>
-              <h3 class="pub-title"><a href="https://uu.diva-portal.org/smash/record.jsf?pid=diva2:1914534" target="_blank" rel="noopener">Graph neural network-based preconditioners for optimizing GMRES</a></h3>
-              <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
-              <div class="pub-venue">Master&rsquo;s thesis &middot; Uppsala University</div>
-              <div class="pub-links">
-                <a href="https://uu.diva-portal.org/smash/record.jsf?pid=diva2:1914534" target="_blank" rel="noopener">Thesis</a>
-                <a href="https://github.com/aleixnieto/master_thesis" target="_blank" rel="noopener">Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2022 -->
-          <div class="pub">
-            <div class="pub-year">2022</div>
-            <div class="pub-main">
-              <span class="chip thesis">Thesis</span>
-              <h3 class="pub-title"><a href="https://diposit.ub.edu/dspace/handle/2445/192075" target="_blank" rel="noopener">An introduction to explainable artificial intelligence with LIME and SHAP</a></h3>
-              <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
-              <div class="pub-venue">Bachelor&rsquo;s thesis &middot; University of Barcelona</div>
-              <div class="pub-links">
-                <a href="https://diposit.ub.edu/dspace/handle/2445/192075" target="_blank" rel="noopener">Thesis</a>
-                <a href="https://github.com/aleixnieto/LIME_SHAP" target="_blank" rel="noopener">Code</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Teaching -->
-      <section class="view" id="teaching">
-        <header class="view-head">
-          <h2 class="view-title">Teaching</h2>
-          <p class="view-sub">Teaching Assistant, Uppsala University.</p>
-        </header>
-
-        <p class="lede">
-          During my time as a master&rsquo;s student I was employed as a Teaching Assistant at the IT
-          department of Uppsala University. As part of my PhD education I am working 20% on teaching duties.
+      <div class="bio">
+        <p>
+          I am a PhD student in Machine Learning at the Division of Systems and Control,
+          <a href="https://www.it.uu.se/" target="_blank" rel="noopener">Department of Information Technology</a>,
+          Uppsala University, supervised by
+          <a href="https://www.uu.se/kontakt-och-organisation/personal?query=N20-971" target="_blank" rel="noopener">Jens Sjölund</a>.
+          I am also a WASP PhD student in the
+          <a href="https://wasp-sweden.org/graduate-school/" target="_blank" rel="noopener">WASP Graduate School</a>
+          (ML/X track, 2026 cohort). My research focuses on machine learning for breast cancer.
         </p>
+        <p>
+          I hold a BSc in Mathematics from the
+          <a href="https://www.ub.edu/" target="_blank" rel="noopener">University of Barcelona</a>,
+          with a minor in Statistics, and an MSc in Data Science (Machine Learning and Statistics)
+          from Uppsala University. For my master&rsquo;s thesis I developed graph neural network-based
+          preconditioners to accelerate the GMRES algorithm &mdash; work I later continued as a research
+          assistant in the same group, leading to a publication at the Northern Lights Deep Learning
+          Conference (NLDL).
+        </p>
+        <p>
+          Before starting my PhD, I spent a year at
+          <a href="https://www.kth.se/" target="_blank" rel="noopener">KTH Royal Institute of Technology</a>
+          as a research engineer in the Division of Robotics, Perception and Learning, where I worked on
+          a computer vision project: using diffusion-based generative models for plankton image
+          classification within a marine environmental research project.
+        </p>
+        <p>In my free time I enjoy hiking, travelling, and football.</p>
+      </div>
+    </section>
 
-        <div class="courses-head">Courses</div>
-        <div class="courses">
-          <div class="course"><span class="course-name">Advanced Probabilistic Machine Learning</span><span class="badge grad">Graduate</span></div>
-          <div class="course"><span class="course-name">Statistical Machine Learning</span><span class="badge grad">Graduate</span></div>
-          <div class="course"><span class="course-name">Introduction to Machine Learning</span><span class="badge">Undergraduate</span></div>
-          <div class="course"><span class="course-name">Scientific Computing for Data Analysis</span><span class="badge">Undergraduate</span></div>
+    <!-- ===================== PUBLICATIONS ===================== -->
+    <section class="view" id="publications">
+      <div class="page-head">
+        <h1>Publications</h1>
+        <p class="subtitle">See also my <a href="https://scholar.google.com/citations?user=vavacbAAAAAJ&amp;hl=ca" target="_blank" rel="noopener">Google&nbsp;Scholar</a> profile.</p>
+      </div>
+
+      <div class="pubs">
+        <!-- 2026 -->
+        <div class="pub">
+          <div class="pub-year">2026</div>
+          <div class="pub-main">
+            <span class="chip arxiv">arXiv</span>
+            <h3 class="pub-title"><a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">Diffusion representations for fine-grained image classification: a marine plankton case study</a></h3>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span>*, Álvaro Mazcuñán Herreros*, Josephine Sullivan</div>
+            <div class="pub-venue">arXiv:2601.13416</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://arxiv.org/pdf/2601.13416" target="_blank" rel="noopener">PDF</a>
+            </div>
+            <div class="pub-note">* Equal contribution.</div>
+          </div>
         </div>
-      </section>
 
-      <footer>
-        &copy; 2026 Aleix Nieto Juscafresa &middot; built with HTML &amp; CSS, hosted on
-        <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>.
-      </footer>
-    </main>
-  </div>
+        <!-- 2025 -->
+        <div class="pub">
+          <div class="pub-year">2025</div>
+          <div class="pub-main">
+            <span class="chip conf">NLDL 2025</span>
+            <h3 class="pub-title"><a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Learning incomplete factorization preconditioners for GMRES</a></h3>
+            <div class="pub-authors">Paul Häusner*, <span class="me">Aleix Nieto Juscafresa</span>*, Jens Sjölund</div>
+            <div class="pub-venue">Northern Lights Deep Learning Conference (NLDL) &middot; PMLR 265:85&ndash;99</div>
+            <div class="pub-links">
+              <a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Proceedings</a>
+              <a href="https://arxiv.org/abs/2409.08262" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://github.com/paulhausner/neural-incomplete-factorization" target="_blank" rel="noopener">Code</a>
+            </div>
+            <div class="pub-note">* Equal contribution.</div>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="pub">
+          <div class="pub-year">2024</div>
+          <div class="pub-main">
+            <span class="chip thesis">Thesis</span>
+            <h3 class="pub-title"><a href="https://uu.diva-portal.org/smash/record.jsf?pid=diva2:1914534" target="_blank" rel="noopener">Graph neural network-based preconditioners for optimizing GMRES</a></h3>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
+            <div class="pub-venue">Master&rsquo;s thesis &middot; Uppsala University</div>
+            <div class="pub-links">
+              <a href="https://uu.diva-portal.org/smash/record.jsf?pid=diva2:1914534" target="_blank" rel="noopener">Thesis</a>
+              <a href="https://github.com/aleixnieto/master_thesis" target="_blank" rel="noopener">Code</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="pub">
+          <div class="pub-year">2022</div>
+          <div class="pub-main">
+            <span class="chip thesis">Thesis</span>
+            <h3 class="pub-title"><a href="https://diposit.ub.edu/dspace/handle/2445/192075" target="_blank" rel="noopener">An introduction to explainable artificial intelligence with LIME and SHAP</a></h3>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span></div>
+            <div class="pub-venue">Bachelor&rsquo;s thesis &middot; University of Barcelona</div>
+            <div class="pub-links">
+              <a href="https://diposit.ub.edu/dspace/handle/2445/192075" target="_blank" rel="noopener">Thesis</a>
+              <a href="https://github.com/aleixnieto/LIME_SHAP" target="_blank" rel="noopener">Code</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TEACHING ===================== -->
+    <section class="view" id="teaching">
+      <div class="page-head">
+        <h1>Teaching</h1>
+        <p class="subtitle">Teaching Assistant, Uppsala University.</p>
+      </div>
+
+      <p class="lede">
+        During my time as a master&rsquo;s student I was employed as a Teaching Assistant at the IT
+        department of Uppsala University. As part of my PhD education I am working 20% on teaching duties.
+      </p>
+
+      <div class="courses-head">Courses</div>
+      <div class="courses">
+        <div class="course"><span class="course-name">Advanced Probabilistic Machine Learning</span><span class="badge grad">Graduate</span></div>
+        <div class="course"><span class="course-name">Statistical Machine Learning</span><span class="badge grad">Graduate</span></div>
+        <div class="course"><span class="course-name">Introduction to Machine Learning</span><span class="badge">Undergraduate</span></div>
+        <div class="course"><span class="course-name">Scientific Computing for Data Analysis</span><span class="badge">Undergraduate</span></div>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2026 Aleix Nieto Juscafresa &middot; built with HTML &amp; CSS, hosted on
+      <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>.
+    </footer>
+  </main>
 
   <script>
     (function () {
       var root = document.documentElement;
 
-      /* Theme toggle (no storage; overrides system for the session) */
+      /* Theme toggle — light is default; toggle switches to dark (no storage) */
       var toggle = document.querySelector(".theme-toggle");
-      function systemDark() { return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches; }
-      function effectiveTheme() { var t = root.getAttribute("data-theme"); return t ? t : (systemDark() ? "dark" : "light"); }
+      function effectiveTheme() { return root.getAttribute("data-theme") || "light"; }
       if (toggle) {
         toggle.addEventListener("click", function () {
           root.setAttribute("data-theme", effectiveTheme() === "dark" ? "light" : "dark");
@@ -504,7 +462,7 @@
         if (views.indexOf(id) === -1) id = "about";
         var sections = document.querySelectorAll(".view");
         for (var i = 0; i < sections.length; i++) sections[i].classList.toggle("active", sections[i].id === id);
-        var links = document.querySelectorAll(".site-nav a[data-view]");
+        var links = document.querySelectorAll(".nav-links a[data-view]");
         for (var j = 0; j < links.length; j++) links[j].classList.toggle("current", links[j].getAttribute("data-view") === id);
         window.scrollTo(0, 0);
       }
