@@ -128,7 +128,21 @@
     .hero-text { flex: 1 1 auto; min-width: 0; }
     .portrait {
       flex: 0 0 auto; width: 218px; height: 218px; object-fit: cover;
-      border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 18px 50px var(--shadow);
+      border-radius: 18px;
+      box-shadow:
+        0 0 0 1px rgba(22, 24, 33, 0.05),
+        0 2px 4px rgba(22, 24, 33, 0.04),
+        0 7px 14px rgba(22, 24, 33, 0.06),
+        0 16px 30px rgba(22, 24, 33, 0.08),
+        0 30px 55px rgba(22, 24, 33, 0.10);
+      transition: box-shadow 0.45s ease;
+    }
+    :root[data-theme="dark"] .portrait {
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 2px 6px rgba(0, 0, 0, 0.40),
+        0 10px 24px rgba(0, 0, 0, 0.45),
+        0 28px 60px rgba(0, 0, 0, 0.55);
     }
 
     /* ---------- Bio ---------- */
