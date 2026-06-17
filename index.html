@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="author" content="Aleix Nieto Juscafresa" />
   <meta name="description" content="PhD Student in Machine Learning at Uppsala University — machine learning for breast cancer." />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#100f12" />
   <title>Aleix Nieto Juscafresa</title>
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231d1d1b'/%3E%3Ctext x='51' y='54' font-family='Georgia,serif' font-size='40' font-weight='500' fill='%23f3f0e9' text-anchor='middle' dominant-baseline='central' letter-spacing='1.5'%3EAN%3C/text%3E%3C/svg%3E" />
@@ -20,29 +22,23 @@
       --serif: "Newsreader", Georgia, "Times New Roman", serif;
       --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-      /* Light is the default theme */
-      --bg: #fbfaf7;
-      --text: #1a1a18;
-      --text-soft: #57574f;
-      --text-faint: #93928a;
-      --line: #e6e3da;
-      --line-strong: #d8d4c8;
-      --accent: #2541b2;
-      --accent-hover: #1a2f85;
-      --accent-soft: rgba(37, 65, 178, 0.09);
-      --arxiv: #b31b1b;
-      --arxiv-soft: rgba(179, 27, 27, 0.09);
-      --glow: rgba(37, 65, 178, 0.06);
-      --shadow: rgba(22, 24, 33, 0.13);
+      /* Dark is the only theme */
+      --bg: #100f12;
+      --text: #ece9e2;
+      --text-soft: #a5a299;
+      --text-faint: #6e6d67;
+      --line: #272730;
+      --line-strong: #34343f;
+      --accent: #aab6ff;
+      --accent-hover: #c7ceff;
+      --accent-soft: rgba(170, 182, 255, 0.13);
+      --arxiv: #ff9a9a;
+      --arxiv-soft: rgba(255, 154, 154, 0.12);
+      --glow: rgba(150, 160, 255, 0.07);
+      --shadow: rgba(0, 0, 0, 0.5);
       --max: 880px;
-    }
-    /* Dark only when the visitor chooses it */
-    :root[data-theme="dark"] {
-      --bg: #100f12; --text: #ece9e2; --text-soft: #a5a299; --text-faint: #6e6d67;
-      --line: #272730; --line-strong: #34343f;
-      --accent: #aab6ff; --accent-hover: #c7ceff; --accent-soft: rgba(170, 182, 255, 0.13);
-      --arxiv: #ff9a9a; --arxiv-soft: rgba(255, 154, 154, 0.12);
-      --glow: rgba(150, 160, 255, 0.07); --shadow: rgba(0, 0, 0, 0.5);
+
+      color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
@@ -56,7 +52,6 @@
       margin: 0; background: var(--bg); color: var(--text);
       font-family: var(--sans); font-size: 17px; line-height: 1.7;
       -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-      transition: background-color 0.45s ease, color 0.45s ease;
     }
     body::before {
       content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
@@ -76,7 +71,7 @@
       position: sticky; top: 0; z-index: 10;
       background: color-mix(in srgb, var(--bg) 82%, transparent);
       backdrop-filter: saturate(170%) blur(12px); -webkit-backdrop-filter: saturate(170%) blur(12px);
-      border-bottom: 1px solid var(--line); transition: border-color 0.45s ease, background-color 0.45s ease;
+      border-bottom: 1px solid var(--line);
     }
     .nav-inner {
       max-width: var(--max); margin: 0 auto; padding: 17px 24px;
@@ -86,25 +81,10 @@
     .nav-name:hover { color: var(--text); }
     .fn { font-weight: 700; }
     .nav-name.is-hidden { visibility: hidden; opacity: 0; pointer-events: none; }
-    .nav-right { display: flex; align-items: center; gap: 22px; }
-    .nav-links { display: flex; gap: 27px; font-size: 0.95rem; }
+    .nav-links { display: flex; gap: 26px; font-size: 0.95rem; }
     .nav-links a { color: var(--text-soft); transition: color 0.15s ease; }
     .nav-links a:hover { color: var(--accent); }
     .nav-links a.current { color: var(--accent); font-weight: 700; }
-
-    .theme-toggle {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 35px; height: 35px; padding: 0; border: 1px solid var(--line); border-radius: 999px;
-      background: transparent; color: var(--text-soft); cursor: pointer;
-      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.25s ease;
-    }
-    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: rotate(-18deg); }
-    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    .theme-toggle svg { width: 17px; height: 17px; }
-    .icon-sun { display: none; }
-    .icon-moon { display: inline; }
-    :root[data-theme="dark"] .icon-sun { display: inline; }
-    :root[data-theme="dark"] .icon-moon { display: none; }
 
     /* ---------- Layout ---------- */
     main { max-width: var(--max); margin: 0 auto; padding: 66px 24px 0; min-height: calc(100vh - 69px); display: flex; flex-direction: column; }
@@ -129,10 +109,6 @@
     .portrait {
       flex: 0 0 auto; width: 218px; height: 218px; object-fit: cover;
       border-radius: 8px;
-      box-shadow: 0 10px 20px rgba(17, 17, 26, 0.13), 0 24px 50px rgba(17, 17, 26, 0.20);
-      transition: box-shadow 0.45s ease;
-    }
-    :root[data-theme="dark"] .portrait {
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45), 0 24px 50px rgba(0, 0, 0, 0.58);
     }
 
@@ -152,41 +128,64 @@
     .social a:hover { color: var(--accent); transform: translateY(-2px) scale(1.07); }
     .social svg { width: 30px; height: 30px; }
 
+    /* ---------- News (timeline) ---------- */
+    .news { margin-top: 2px; }
+    .news-item { display: grid; grid-template-columns: 84px 1fr; column-gap: 24px; }
+    .news-date { text-align: right; font-size: 0.84rem; color: var(--text-faint); font-variant-numeric: tabular-nums; padding-top: 22px; }
+    .news-body { position: relative; padding: 22px 0 22px 30px; border-left: 1px solid var(--line); }
+    .news-body::before {
+      content: ""; position: absolute; left: -5.5px; top: 27px;
+      width: 11px; height: 11px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 0 4px var(--bg); transition: transform 0.25s ease;
+    }
+    .news-item:hover .news-body::before { transform: scale(1.35); }
+    .news-item:first-child .news-date { padding-top: 5px; }
+    .news-item:first-child .news-body { padding-top: 5px; }
+    .news-item:first-child .news-body::before { top: 10px; }
+    .news-item:last-child .news-body { padding-bottom: 4px; }
+    .news-body p { margin: 0; font-size: 1.01rem; line-height: 1.65; }
+    .news-body a { border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+    .news-body a:hover { border-color: var(--accent); }
+
+    .tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 3px 11px; border-radius: 999px; margin-bottom: 10px;
+      color: var(--accent); background: var(--accent-soft);
+    }
+
     /* ---------- Publications (timeline) ---------- */
     .pubs { margin-top: 2px; }
     .pub { display: grid; grid-template-columns: 48px 1fr; column-gap: 26px; }
-    .pub-year { text-align: right; font-size: 0.86rem; color: var(--text-faint); font-variant-numeric: tabular-nums; padding-top: 28px; }
-    .pub-main { position: relative; padding: 28px 0 28px 32px; border-left: 1px solid var(--line); transition: border-color 0.45s ease; }
+    .pub-year { text-align: right; font-size: 0.86rem; color: var(--text-faint); font-variant-numeric: tabular-nums; padding-top: 21px; }
+    .pub-main { position: relative; padding: 21px 0 21px 30px; border-left: 1px solid var(--line); }
     .pub-main::before {
-      content: ""; position: absolute; left: -5.5px; top: 33px;
+      content: ""; position: absolute; left: -5.5px; top: 26px;
       width: 11px; height: 11px; border-radius: 50%; background: var(--accent);
-      box-shadow: 0 0 0 4px var(--bg); transition: transform 0.25s ease, box-shadow 0.45s ease;
+      box-shadow: 0 0 0 4px var(--bg); transition: transform 0.25s ease;
     }
     .pub:hover .pub-main::before { transform: scale(1.35); }
-    .pub:first-child .pub-year { padding-top: 6px; }
-    .pub:first-child .pub-main { padding-top: 6px; }
-    .pub:first-child .pub-main::before { top: 11px; }
+    .pub:first-child .pub-year { padding-top: 5px; }
+    .pub:first-child .pub-main { padding-top: 5px; }
+    .pub:first-child .pub-main::before { top: 10px; }
     .pub:last-child .pub-main { padding-bottom: 4px; }
 
     .chip {
       display: inline-block; font-size: 0.69rem; font-weight: 600; letter-spacing: 0.07em;
-      text-transform: uppercase; padding: 4px 11px; border-radius: 999px; margin-bottom: 13px;
-      transition: background-color 0.45s ease, color 0.45s ease;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 999px; margin-bottom: 11px;
     }
     .chip.thesis { color: var(--text-soft); background: color-mix(in srgb, var(--text-soft) 13%, transparent); }
     .chip.conf { color: var(--accent); background: var(--accent-soft); }
     .chip.arxiv { color: var(--arxiv); background: var(--arxiv-soft); }
 
-    .pub-title { font-weight: 600; font-size: 1.14rem; line-height: 1.4; letter-spacing: -0.01em; margin: 0 0 7px; }
+    .pub-title { font-weight: 600; font-size: 1.14rem; line-height: 1.4; letter-spacing: -0.01em; margin: 0 0 6px; }
     .pub-title a { color: var(--text); }
     .pub-title a:hover { color: var(--accent); }
     .pub-authors { font-size: 0.97rem; color: var(--text-soft); }
     .pub-authors .me { color: var(--text); font-weight: 700; }
     .pub-venue { font-size: 0.93rem; color: var(--text-soft); font-style: italic; margin-top: 4px; }
-    .pub-links { margin-top: 14px; display: flex; gap: 9px; flex-wrap: wrap; }
+    .pub-links { margin-top: 12px; display: flex; gap: 9px; flex-wrap: wrap; }
     .pub-links a { font-size: 0.81rem; font-weight: 500; color: var(--accent); border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 14px; }
     .pub-links a:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
-    .pub-note { font-size: 0.8rem; color: var(--text-faint); margin-top: 12px; }
 
     /* ---------- Teaching ---------- */
     .lede {
@@ -197,7 +196,7 @@
     .courses-head { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); margin: 38px 0 6px; }
     .course {
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 17px 0; border-bottom: 1px solid var(--line); transition: border-color 0.45s ease;
+      padding: 17px 0; border-bottom: 1px solid var(--line);
     }
     .course:last-child { border-bottom: 0; }
     .course-name { font-weight: 500; font-size: 1.05rem; }
@@ -205,7 +204,6 @@
       flex: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
       padding: 3px 12px; border-radius: 999px; color: var(--text-soft);
       background: color-mix(in srgb, var(--text-soft) 12%, transparent);
-      transition: background-color 0.45s ease, color 0.45s ease;
     }
     .badge.grad { color: var(--accent); background: var(--accent-soft); }
 
@@ -225,6 +223,12 @@
     .js #about.active .bio p:nth-child(2)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .38s; }
     .js #about.active .bio p:nth-child(3)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .44s; }
     .js #about.active .bio p:nth-child(4)  { animation: rise .62s cubic-bezier(.21,.7,.25,1) both; animation-delay: .50s; }
+
+    .js #news.active .page-head            { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
+    .js #news.active .news-item:nth-child(1){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
+    .js #news.active .news-item:nth-child(2){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .21s; }
+    .js #news.active .news-item:nth-child(3){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .28s; }
+    .js #news.active .news-item:nth-child(4){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .35s; }
 
     .js #publications.active .page-head       { animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .04s; }
     .js #publications.active .pub:nth-child(1){ animation: rise .6s cubic-bezier(.21,.7,.25,1) both; animation-delay: .14s; }
@@ -257,6 +261,14 @@
       .portrait { width: 172px; height: 172px; }
       .social { justify-content: center; }
       .bio p, .lede { text-align: left; text-align-last: left; }
+
+      .news-item { grid-template-columns: 1fr; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+      .news-item:last-child { border-bottom: 0; }
+      .news-date { text-align: left; padding-top: 18px; margin-bottom: 2px; font-weight: 600; color: var(--text-soft); }
+      .news-item:first-child .news-date { padding-top: 4px; }
+      .news-body { border-left: 0; padding: 0; }
+      .news-body::before { display: none; }
+
       .pub { grid-template-columns: 1fr; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
       .pub:last-child { border-bottom: 0; }
       .pub-year { text-align: left; padding-top: 22px; margin-bottom: 2px; font-weight: 600; color: var(--text-soft); }
@@ -282,17 +294,12 @@
   <header class="nav">
     <div class="nav-inner">
       <a class="nav-name is-hidden" href="#about" data-view="about"><span class="fn">Aleix</span> Nieto Juscafresa</a>
-      <div class="nav-right">
-        <nav class="nav-links" aria-label="Primary">
-          <a href="#about" data-view="about" class="current">about</a>
-          <a href="#publications" data-view="publications">publications</a>
-          <a href="#teaching" data-view="teaching">teaching</a>
-        </nav>
-        <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
-        </button>
-      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about" data-view="about" class="current">about</a>
+        <a href="#news" data-view="news">news</a>
+        <a href="#publications" data-view="publications">publications</a>
+        <a href="#teaching" data-view="teaching">teaching</a>
+      </nav>
     </div>
   </header>
 
@@ -351,6 +358,52 @@
       </div>
     </section>
 
+    <!-- ===================== NEWS ===================== -->
+    <section class="view" id="news">
+      <div class="page-head">
+        <h1>News</h1>
+        <p class="subtitle">Recent and upcoming activities.</p>
+      </div>
+
+      <div class="news">
+        <!-- Dec 2025 -->
+        <div class="news-item">
+          <div class="news-date">Dec 2025</div>
+          <div class="news-body">
+            <span class="tag">Workshop</span>
+            <p>Attended the <a href="https://sites.google.com/g.harvard.edu/aicceurips" target="_blank" rel="noopener">AICC: Workshop on AI for Climate and Conservation</a>, co-located with EurIPS 2025 in Copenhagen.</p>
+          </div>
+        </div>
+
+        <!-- Jan 2026 -->
+        <div class="news-item">
+          <div class="news-date">Jan 2026</div>
+          <div class="news-body">
+            <span class="tag">PhD</span>
+            <p>Started my PhD in Machine Learning at Uppsala University on 26 January.</p>
+          </div>
+        </div>
+
+        <!-- Jun 2026 -->
+        <div class="news-item">
+          <div class="news-date">Jun 2026</div>
+          <div class="news-body">
+            <span class="tag">Conference</span>
+            <p>Presented our work on learned preconditioners for GMRES at <a href="https://nasca26.org/" target="_blank" rel="noopener">NASCA 2026</a> in Kalamata, Greece.</p>
+          </div>
+        </div>
+
+        <!-- Jul 2026 -->
+        <div class="news-item">
+          <div class="news-date">Jul 2026</div>
+          <div class="news-body">
+            <span class="tag">Summer School</span>
+            <p>Attending the <a href="https://www.ellismcr.org/" target="_blank" rel="noopener">ELLIS Summer School on Machine Learning for Healthcare and Biology</a> in Manchester (7&ndash;9 July).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== PUBLICATIONS ===================== -->
     <section class="view" id="publications">
       <div class="page-head">
@@ -365,13 +418,12 @@
           <div class="pub-main">
             <span class="chip arxiv">arXiv</span>
             <h3 class="pub-title"><a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">Diffusion representations for fine-grained image classification: a marine plankton case study</a></h3>
-            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span>*, Álvaro Mazcuñán Herreros*, Josephine Sullivan</div>
+            <div class="pub-authors"><span class="me">Aleix Nieto Juscafresa</span>, Álvaro Mazcuñán Herreros, Josephine Sullivan</div>
             <div class="pub-venue">arXiv:2601.13416</div>
             <div class="pub-links">
               <a href="https://arxiv.org/abs/2601.13416" target="_blank" rel="noopener">arXiv</a>
               <a href="https://arxiv.org/pdf/2601.13416" target="_blank" rel="noopener">PDF</a>
             </div>
-            <div class="pub-note">* Equal contribution.</div>
           </div>
         </div>
 
@@ -381,14 +433,13 @@
           <div class="pub-main">
             <span class="chip conf">NLDL 2025</span>
             <h3 class="pub-title"><a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Learning incomplete factorization preconditioners for GMRES</a></h3>
-            <div class="pub-authors">Paul Häusner*, <span class="me">Aleix Nieto Juscafresa</span>*, Jens Sjölund</div>
+            <div class="pub-authors">Paul Häusner, <span class="me">Aleix Nieto Juscafresa</span>, Jens Sjölund</div>
             <div class="pub-venue">Northern Lights Deep Learning Conference (NLDL) &middot; PMLR 265:85&ndash;99</div>
             <div class="pub-links">
               <a href="https://proceedings.mlr.press/v265/hausner25a.html" target="_blank" rel="noopener">Proceedings</a>
               <a href="https://arxiv.org/abs/2409.08262" target="_blank" rel="noopener">arXiv</a>
               <a href="https://github.com/paulhausner/neural-incomplete-factorization" target="_blank" rel="noopener">Code</a>
             </div>
-            <div class="pub-note">* Equal contribution.</div>
           </div>
         </div>
 
@@ -453,19 +504,8 @@
 
   <script>
     (function () {
-      var root = document.documentElement;
-
-      /* Theme toggle — light is default; toggle switches to dark (no storage) */
-      var toggle = document.querySelector(".theme-toggle");
-      function effectiveTheme() { return root.getAttribute("data-theme") || "light"; }
-      if (toggle) {
-        toggle.addEventListener("click", function () {
-          root.setAttribute("data-theme", effectiveTheme() === "dark" ? "light" : "dark");
-        });
-      }
-
       /* View switching */
-      var views = ["about", "publications", "teaching"];
+      var views = ["about", "news", "publications", "teaching"];
       var navName = document.querySelector(".nav-name");
       function show(id) {
         if (views.indexOf(id) === -1) id = "about";
