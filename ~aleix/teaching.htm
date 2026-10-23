@@ -1,7 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <!--
   The old-school edition of Aleix Nieto Juscafresa's home page.
-  Plain HTML 3.2: no frameworks, no web fonts, no build step.
+  Plain HTML 3.2, plus a FIELDSET and a few BUTTONs from HTML 4.0. No frameworks, no web fonts, no build step.
+  retro.css dresses it up as Windows 95, and retro.js runs the title bar, the boot screen and the visitor counter.
   The modern site lives one directory up.
 -->
 <HTML LANG="en">
@@ -13,87 +14,49 @@
 <META NAME="keywords" CONTENT="Aleix Nieto Juscafresa, machine learning, breast cancer, medical imaging, multimodal learning, mammography, Uppsala University, WASP">
 <TITLE>Aleix Nieto Juscafresa - Teaching</TITLE>
 <SCRIPT LANGUAGE="JavaScript" SRC="../theme.js"></SCRIPT>
-<STYLE TYPE="text/css">
+<SCRIPT LANGUAGE="JavaScript">
 <!--
-/* The pages are HTML 3.2. These rules only tidy the boxes, keep things
-   comfortable on today's screens and follow the site-wide light/dark setting. */
-body { margin: 14px 8px 28px; font-family: "Times New Roman", Times, serif; }
-table.page { max-width: 100%; }
-img.banner { display: block; max-width: 100%; height: auto; }
-td.nav { padding: 14px 10px 0 4px; font-size: 17px; line-height: 1.9; }
-td.nav a { text-decoration: none; }
-td.nav a:hover { text-decoration: underline; }
-td.main { padding-top: 14px; }
-table.win td { border: 0; }
-table.win table { color: inherit; }
-td.bar { padding: 3px 8px; }
-td.pane { padding: 8px 14px 10px; }
-td.pane > :last-child { margin-bottom: 4px; }
-img.photo { image-rendering: pixelated; }
-pre { overflow-x: auto; }
-td.foot { padding-top: 4px; font-size: 13px; text-align: center; }
-form.lights { margin: 8px 0 0; }
-html:not([data-theme]) form.lights { display: none; }
-html[data-theme="dark"] { color-scheme: dark; }
-@media (max-width: 640px) {
-  table.page, table.page > tbody > tr > td { display: block; width: auto !important; }
-  td.nav { padding: 10px 2px 0; line-height: 1.6; }
-  td.nav br { display: none; }
-  td.nav nobr { display: inline-block; margin-right: 14px; }
-  table.card td { display: block; }
-  table.card td.gap { display: none; }
-  table.card img.photo { margin-bottom: 10px; }
-  pre { font-size: 2.6vw; }
-  td.pane { overflow-wrap: anywhere; }
-}
-/* Red desktop: Windows 95 windows in Uppsala red on the cloudy Midnight background */
-body { background-color: #101622; }
-td.nav { font-family: Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif; font-size: 13px; line-height: 1.2; padding: 14px 14px 0 0; }
-td.nav img, td.nav br { display: none; }
-td.nav nobr { display: block; margin: 0 0 6px; padding: 6px 10px; background: #C0C0C0; color: #000000;
-  border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; box-shadow: 1px 1px 0 #000000; }
-td.nav b { font-weight: normal; }
-td.nav nobr a:link, td.nav nobr a:visited { color: #000000; }
-td.nav nobr a:hover { text-decoration: underline; }
-td.nav nobr.cur { background: #D4D0C8; border-color: #808080 #FFFFFF #FFFFFF #808080; box-shadow: inset 1px 1px 0 #000000; }
-td.nav nobr.cur b { font-weight: bold; }
-td.nav nobr.modern { margin-top: 18px; }
-table.win { background: #C0C0C0; color: #000000; border: 2px solid; border-color: #DFDFDF #000000 #000000 #DFDFDF;
-  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #808080; border-collapse: separate; border-spacing: 3px; }
-table.win td.bar { background: #800000; background: linear-gradient(90deg, #800000, #CC4040); padding: 3px 6px; }
-td.bar font { font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 13px; }
-table.win td.pane { background: #FFFFFF; border: 2px solid; border-color: #808080 #FFFFFF #FFFFFF #808080; padding: 10px 14px; }
-table.win a:link { color: #0000FF; }
-table.win a:visited { color: #800080; }
-td.foot { color: #FFFFFF; font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 12px; }
-td.foot a:link, td.foot a:visited { color: #FFFFFF; }
-table.wedge { display: none; }
-form.lights input { font: 13px Tahoma, Verdana, Arial, sans-serif; color: #000000; background: #C0C0C0; padding: 4px 14px;
-  border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; box-shadow: 1px 1px 0 #000000; }
-@media (max-width: 640px) {
-  td.nav nobr { display: inline-block; margin: 0 6px 6px 0; }
-  td.nav nobr.modern { margin-top: 0; }
-}
-html[data-theme="dark"] table.win { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
-html[data-theme="dark"] table.win td.bar { background: #800000; }
-html[data-theme="dark"] table.win td.pane { background: #000000; border-color: #FFFFFF; }
-html[data-theme="dark"] table.win a:link { color: #FFFF00; }
-html[data-theme="dark"] table.win a:visited { color: #00FFFF; }
-html[data-theme="dark"] td.nav nobr { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
-html[data-theme="dark"] td.nav nobr a:link, html[data-theme="dark"] td.nav nobr a:visited { color: #FFFFFF; }
-html[data-theme="dark"] td.nav nobr.cur { background: #800000; }
-html[data-theme="dark"] form.lights input { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
--->
-</STYLE>
+/* Runs before the first paint. Keeps what the title-bar buttons did while you move between the
+   four pages, and blacks out the page when you arrive through the pi, so the boot screen in
+   retro.js can take over. */
+(function (h) {
+  h.className += " js";
+  try {
+    var s = window.sessionStorage, st = JSON.parse(s.getItem("aleix95") || "{}");
+    if (st.max) h.className += " max";
+    if (st.bar) h.className += " taskbar";
+    if (s.getItem("aleix95-boot")) {
+      s.removeItem("aleix95-boot");
+      if (!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+        h.className += " booting";
+        setTimeout(function () { h.className = h.className.replace(/ booting\b/g, ""); }, 7000);
+      }
+    }
+  } catch (e) {}
+})(document.documentElement);
+// -->
+</SCRIPT>
+<LINK REL="stylesheet" TYPE="text/css" HREF="retro.css">
 </HEAD>
 
 <BODY BACKGROUND="bg.jpg" BGCOLOR="#101622" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
 
 <TABLE WIDTH="760" BORDER="0" CELLPADDING="0" CELLSPACING="0" ALIGN="center" CLASS="page">
-<TR><TD COLSPAN="2"><IMG SRC="banner.png" WIDTH="760" HEIGHT="100" ALT="Aleix Nieto Juscafresa" CLASS="banner"></TD></TR>
 <TR><TD COLSPAN="2">
-<TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0" CLASS="wedge" role="presentation" aria-hidden="true">
-<TR><TD BGCOLOR="#000000" HEIGHT="6"></TD><TD BGCOLOR="#111111" HEIGHT="6"></TD><TD BGCOLOR="#222222" HEIGHT="6"></TD><TD BGCOLOR="#333333" HEIGHT="6"></TD><TD BGCOLOR="#444444" HEIGHT="6"></TD><TD BGCOLOR="#555555" HEIGHT="6"></TD><TD BGCOLOR="#666666" HEIGHT="6"></TD><TD BGCOLOR="#777777" HEIGHT="6"></TD><TD BGCOLOR="#888888" HEIGHT="6"></TD><TD BGCOLOR="#999999" HEIGHT="6"></TD><TD BGCOLOR="#AAAAAA" HEIGHT="6"></TD><TD BGCOLOR="#BBBBBB" HEIGHT="6"></TD><TD BGCOLOR="#CCCCCC" HEIGHT="6"></TD><TD BGCOLOR="#DDDDDD" HEIGHT="6"></TD><TD BGCOLOR="#EEEEEE" HEIGHT="6"></TD><TD BGCOLOR="#FFFFFF" HEIGHT="6"></TD></TR>
+<TABLE WIDTH="100%" BORDER="2" CELLPADDING="0" CELLSPACING="0" BGCOLOR="#C0C0C0" CLASS="win banner">
+<TR><TD BGCOLOR="#800000" CLASS="bar"><TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0" CLASS="titlebar"><TR>
+<TD><FONT FACE="Arial, Helvetica" SIZE="2" COLOR="#FFFFFF"><B>Home Page - Aleix Nieto Juscafresa</B></FONT></TD>
+<TD ALIGN="right" CLASS="caps"><BUTTON TYPE="button" CLASS="cap" ID="cap-min" TITLE="Minimize" ARIA-LABEL="Minimize"><IMG SRC="cap-min.gif" WIDTH="16" HEIGHT="14" ALT=""></BUTTON><BUTTON TYPE="button" CLASS="cap" ID="cap-max" TITLE="Maximize" ARIA-LABEL="Maximize"><IMG SRC="cap-max.gif" WIDTH="16" HEIGHT="14" ALT=""></BUTTON><BUTTON TYPE="button" CLASS="cap close" ID="cap-close" TITLE="Close" ARIA-LABEL="Close"><IMG SRC="cap-close.gif" WIDTH="16" HEIGHT="14" ALT=""></BUTTON></TD>
+</TR></TABLE></TD></TR>
+<TR><TD CLASS="head"><TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0" CLASS="headrow"><TR>
+<TD CLASS="who"><B CLASS="name">Aleix Nieto Juscafresa</B><BR>
+<I CLASS="sub">Machine learning for breast cancer &nbsp;&middot;&nbsp; Uppsala University</I></TD>
+<TD CLASS="hello"><FIELDSET CLASS="hello"><LEGEND>Welcome!</LEGEND>
+<DIV>This is the old-school version of my home page.</DIV>
+<DIV CLASS="cnt" ID="cnt">You are visitor number <SPAN CLASS="odo" ID="odo"><B>&nbsp;</B><B>&nbsp;</B><B>&nbsp;</B><B>&nbsp;</B><B>&nbsp;</B><B>&nbsp;</B><B>&nbsp;</B></SPAN></DIV>
+<NOSCRIPT><DIV>Thanks for stopping by.</DIV></NOSCRIPT>
+</FIELDSET></TD>
+</TR></TABLE></TD></TR>
 </TABLE>
 </TD></TR>
 <TR>
@@ -150,5 +113,6 @@ if (window.siteTheme) siteTheme.onChange(function (t) {
 </TD></TR>
 </TABLE>
 
+<SCRIPT LANGUAGE="JavaScript" SRC="retro.js"></SCRIPT>
 </BODY>
 </HTML>

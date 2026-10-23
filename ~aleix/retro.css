@@ -1,0 +1,229 @@
+/* The old-school pages are HTML 3.2 (plus a FIELDSET and a few BUTTONs from HTML 4.0).
+   This file tidies the boxes, keeps things comfortable on today's screens, follows the
+   site-wide light/dark setting and styles the Windows 95 parts that retro.js brings to life. */
+
+[hidden] { display: none !important; }
+
+/* ---------- page ---------- */
+body { margin: 14px 8px 28px; font-family: "Times New Roman", Times, serif; background-color: #101622; }
+table.page { max-width: 100%; }
+td.main { padding-top: 14px; vertical-align: top; }
+img.photo { image-rendering: pixelated; }
+pre { overflow-x: auto; }
+html[data-theme="dark"] { color-scheme: dark; }
+html.max body { margin-left: 0; margin-right: 0; }
+html.max table.page { width: 100% !important; }
+
+/* ---------- windows ---------- */
+table.win { background: #C0C0C0; color: #000000; border: 2px solid; border-color: #DFDFDF #000000 #000000 #DFDFDF;
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #808080; border-collapse: separate; border-spacing: 3px; }
+table.win td { border: 0; }
+table.win table { color: inherit; }
+table.win td.bar { background: #800000; background: linear-gradient(90deg, #800000, #CC4040); padding: 3px 6px; }
+td.bar font { font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 13px; }
+table.win td.pane { background: #FFFFFF; border: 2px solid; border-color: #808080 #FFFFFF #FFFFFF #808080; padding: 10px 14px; }
+td.pane > :last-child { margin-bottom: 4px; }
+table.win a:link { color: #0000FF; }
+table.win a:visited { color: #800080; }
+
+/* ---------- the banner: a window with a working title bar and the welcome box ---------- */
+table.banner { border-spacing: 2px; }
+table.banner td.bar { height: 18px; padding: 0 2px 0 5px; }
+table.titlebar { border-collapse: collapse; }
+table.titlebar td { padding: 0; vertical-align: middle; }
+table.banner td.bar font { font: bold 12px Tahoma, Verdana, Arial, sans-serif; white-space: nowrap; }
+td.caps { width: 52px; text-align: right; white-space: nowrap; font-size: 0; line-height: 0; }
+button.cap { display: inline-block; vertical-align: middle; width: 16px; height: 14px; margin: 0; padding: 0; border: 0;
+  background: #C0C0C0; cursor: pointer; box-shadow: inset -1px -1px #000000, inset 1px 1px #FFFFFF, inset -2px -2px #808080, inset 2px 2px #DFDFDF; }
+button.cap img { display: block; image-rendering: pixelated; }
+button.cap:active { box-shadow: inset 1px 1px #000000, inset -1px -1px #FFFFFF, inset 2px 2px #808080, inset -2px -2px #DFDFDF; }
+button.cap:active img { transform: translate(1px, 1px); }
+button.cap.close { margin-left: 2px; }
+button.cap:focus-visible { outline: 1px dotted #000000; outline-offset: -4px; }
+html:not(.js) button.cap { cursor: default; }
+td.head { height: 73px; padding: 0 14px 0 18px; }
+table.headrow { width: 100%; border-collapse: collapse; }
+table.headrow td { padding: 0; }
+td.who { vertical-align: bottom; padding-bottom: 6px !important; }
+td.who b.name { display: block; font: bold 32px/1 "Times New Roman", Times, serif; color: #000000; white-space: nowrap; }
+td.who br { display: none; }
+td.who i.sub { display: block; margin-top: 6px; font: italic 15px/1.2 "Times New Roman", Times, serif; color: #303030; }
+td.hello { vertical-align: middle; text-align: right; padding-left: 12px !important; }
+
+/* the welcome box: a Windows 95 group box with three evenly spaced lines and the visitor counter */
+fieldset.hello { display: inline-block; width: 322px; margin: 0; padding: 0 10px 6px; text-align: left; vertical-align: middle;
+  border: 1px solid #808080; box-shadow: inset 1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+  font: 12px/20px Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif; color: #000000; }
+fieldset.hello legend { position: relative; padding: 0 3px; margin-left: -2px; background: #C0C0C0; font: inherit; line-height: 20px; }
+fieldset.hello div.cnt { height: 20px; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+html:not(.js) fieldset.hello div.cnt { display: none; }
+span.odo { display: inline-flex; gap: 1px; padding: 1px; background: #000000; box-shadow: 1px 1px 0 #FFFFFF, -1px -1px 0 #808080; }
+span.odo b { width: 11px; height: 15px; background: #000000; background: linear-gradient(#3A3A3A, #000000 42%, #000000 58%, #3A3A3A);
+  color: #FFFFFF; font: bold 12px/15px "Courier New", Courier, monospace; text-align: center; }
+
+/* ---------- menu: the whole box is the link, and it presses in like a Windows button ---------- */
+td.nav { padding: 14px 14px 0 0; vertical-align: top; font-family: Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif; font-size: 13px; line-height: 1.2; }
+td.nav img, td.nav br { display: none; }
+td.nav nobr { display: block; margin: 0 0 6px; }
+td.nav nobr.modern { margin-top: 18px; }
+td.nav a, td.nav b.here { display: block; padding: 7px 10px; background: #C0C0C0; color: #000000; text-decoration: none; font-weight: normal;
+  box-shadow: inset -1px -1px #000000, inset 1px 1px #FFFFFF, inset -2px -2px #808080, inset 2px 2px #DFDFDF; }
+td.nav a b { font-weight: normal; }
+td.nav a:link, td.nav a:visited { color: #000000; }
+td.nav a:hover { background: #C8C8C8; }
+td.nav a:active, td.nav b.here { background: #D4D0C8; padding: 8px 9px 6px 11px;
+  box-shadow: inset 1px 1px #000000, inset -1px -1px #FFFFFF, inset 2px 2px #808080, inset -2px -2px #DFDFDF; }
+td.nav b.here { font-weight: bold; cursor: default; }
+td.nav a:focus-visible { outline: 1px dotted #000000; outline-offset: -5px; }
+
+/* ---------- footer ---------- */
+td.foot { padding-top: 4px; text-align: center; color: #FFFFFF; font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 12px; }
+td.foot a:link, td.foot a:visited { color: #FFFFFF; }
+form.lights { margin: 8px 0 0; }
+html:not([data-theme]) form.lights { display: none; }
+form.lights input { font: 13px Tahoma, Verdana, Arial, sans-serif; color: #000000; background: #C0C0C0; padding: 4px 14px; border: 0; cursor: pointer;
+  box-shadow: inset -1px -1px #000000, inset 1px 1px #FFFFFF, inset -2px -2px #808080, inset 2px 2px #DFDFDF; }
+form.lights input:active { box-shadow: inset 1px 1px #000000, inset -1px -1px #FFFFFF, inset 2px 2px #808080, inset -2px -2px #DFDFDF; }
+
+/* ---------- Windows 95 scroll bars (Chrome, Edge and Safari) ---------- */
+::-webkit-scrollbar { width: 16px; height: 16px; }
+::-webkit-scrollbar-track { background: #FFFFFF repeating-conic-gradient(#C0C0C0 0% 25%, #FFFFFF 0% 50%) 0 0 / 2px 2px; }
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button:single-button { background-color: #C0C0C0;
+  box-shadow: inset -1px -1px #000000, inset 1px 1px #DFDFDF, inset -2px -2px #808080, inset 2px 2px #FFFFFF; }
+::-webkit-scrollbar-button:single-button { display: block; width: 16px; height: 16px; background-repeat: no-repeat; background-position: center; }
+::-webkit-scrollbar-button:single-button:vertical:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4'%3E%3Cpath d='M3 0h1v1h1v1h1v1h1v1H0V3h1V2h1V1h1z'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:single-button:vertical:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4'%3E%3Cpath d='M0 0h7v1H6v1H5v1H4v1H3V3H2V2H1V1H0z'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:single-button:horizontal:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7'%3E%3Cpath d='M0 3h1V2h1V1h1V0h1v7H3V6H2V5H1V4H0z'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:single-button:horizontal:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7'%3E%3Cpath d='M0 0h1v1h1v1h1v1h1v1H3v1H2v1H1v1H0z'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:single-button:active { box-shadow: inset 1px 1px #808080, inset -1px -1px #808080; }
+::-webkit-scrollbar-corner { background: #C0C0C0; }
+
+/* ---------- lights off: Windows High Contrast Black ---------- */
+html[data-theme="dark"] table.win { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
+html[data-theme="dark"] table.win td.bar { background: #800000; }
+html[data-theme="dark"] table.win td.pane { background: #000000; border-color: #FFFFFF; }
+html[data-theme="dark"] table.win a:link { color: #FFFF00; }
+html[data-theme="dark"] table.win a:visited { color: #00FFFF; }
+html[data-theme="dark"] td.who b.name, html[data-theme="dark"] td.who i.sub { color: #FFFFFF; }
+html[data-theme="dark"] fieldset.hello { color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
+html[data-theme="dark"] fieldset.hello legend { background: #000000; }
+html[data-theme="dark"] span.odo { box-shadow: 0 0 0 1px #FFFFFF; }
+html[data-theme="dark"] button.cap { background: #000000; box-shadow: inset 0 0 0 1px #FFFFFF; }
+html[data-theme="dark"] button.cap img { filter: invert(1); }
+html[data-theme="dark"] td.nav a, html[data-theme="dark"] td.nav b.here { background: #000000; color: #FFFFFF; box-shadow: inset 0 0 0 2px #FFFFFF; }
+html[data-theme="dark"] td.nav a:link, html[data-theme="dark"] td.nav a:visited { color: #FFFFFF; }
+html[data-theme="dark"] td.nav b.here, html[data-theme="dark"] td.nav a:active { background: #800000; }
+html[data-theme="dark"] form.lights input { background: #000000; color: #FFFFFF; box-shadow: inset 0 0 0 2px #FFFFFF; }
+
+/* ---------- phones ---------- */
+@media (max-width: 640px) {
+  table.page, table.page > tbody > tr > td { display: block; width: auto !important; }
+  td.nav { padding: 10px 0 0; }
+  td.nav nobr { display: inline-block; margin: 0 6px 6px 0; }
+  td.nav nobr.modern { margin-top: 0; }
+  td.head { height: auto; padding: 8px 10px 10px 12px; }
+  table.headrow, table.headrow > tbody > tr > td { display: block; width: auto; }
+  td.who b.name { font-size: 27px; white-space: normal; }
+  td.hello { text-align: left; padding: 10px 0 0 !important; }
+  fieldset.hello { display: block; width: auto; }
+  table.card td { display: block; }
+  table.card td.gap { display: none; }
+  table.card img.photo { margin-bottom: 10px; }
+  pre { font-size: 2.6vw; }
+  td.pane { overflow-wrap: anywhere; }
+}
+@media (max-width: 360px) {
+  table.banner td.bar font { font-size: 11px; }
+  fieldset.hello { font-size: 11px; }
+}
+
+/* ======================= the parts retro.js adds ======================= */
+
+/* boot screen, shown when you arrive through the pi on the modern page */
+html.booting body { background: #000000 !important; }
+html.booting table.page { visibility: hidden; }
+#boot { position: fixed; inset: 0; z-index: 1000; background: #000000; cursor: pointer; overflow: hidden; }
+#boot .bios { position: absolute; inset: 0; padding: 28px 34px; color: #AAAAAA; font: bold 16px/1.45 "Lucida Console", "Courier New", monospace; }
+#boot pre { margin: 0; font: inherit; white-space: pre; overflow: hidden; }
+#boot .w { color: #FFFFFF; }
+#boot .logo { position: absolute; right: 34px; top: 26px; width: 118px; text-align: center; color: #FFFF55; font: bold 13px/1.2 "Courier New", monospace; }
+#boot .logo b { display: block; font: bold italic 64px/1 "Times New Roman", serif; color: #FF5555; text-shadow: 3px 3px 0 #550000; }
+#boot .hint { position: absolute; left: 34px; bottom: 24px; color: #FFFFFF; }
+#boot .splash { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  background: #101622 url(bg.jpg) repeat; color: #FFFFFF; animation: r95-in .35s both; }
+#boot .splash .t { font: bold 46px "Times New Roman", Times, serif; text-shadow: 3px 3px 0 #000000; }
+#boot .splash .s { margin-top: 8px; font: italic 26px "Times New Roman", Times, serif; text-shadow: 2px 2px 0 #000000; }
+#boot .splash .s b { font-style: normal; color: #FF7070; }
+#boot .splash .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
+  background: linear-gradient(90deg, #400000, #CC4040, #FFB0B0, #CC4040, #400000) 0 0 / 50% 100%; animation: r95-bar .9s linear infinite; }
+#boot.out { animation: r95-out .35s both; }
+@media (max-width: 640px) {
+  #boot .bios { padding: 16px 14px; font-size: 2.45vw; }
+  #boot .logo { display: none; }
+  #boot .hint { left: 14px; bottom: 16px; }
+  #boot .splash .t { font-size: 8vw; }
+  #boot .splash .s { font-size: 5vw; }
+}
+@keyframes r95-bar { to { background-position: 100% 0; } }
+@keyframes r95-in { from { opacity: 0; } }
+@keyframes r95-out { to { opacity: 0; } }
+
+/* Windows 95 widgets used by the title-bar buttons */
+.r95 { font: 12px Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif; color: #000000; }
+.r95-box { background: #C0C0C0; border: 2px solid; border-color: #DFDFDF #000000 #000000 #DFDFDF; box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #808080; padding: 2px; }
+.r95-title { display: flex; align-items: center; justify-content: space-between; height: 18px; padding: 0 2px 0 4px;
+  background: #800000; background: linear-gradient(90deg, #800000, #CC4040); color: #FFFFFF; font-weight: bold; white-space: nowrap; overflow: hidden; }
+.r95-btn { min-width: 76px; padding: 5px 14px; border: 0; background: #C0C0C0; color: #000000; font: 12px Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif; cursor: pointer;
+  box-shadow: inset -1px -1px #000000, inset 1px 1px #FFFFFF, inset -2px -2px #808080, inset 2px 2px #DFDFDF; }
+.r95-btn:active, .r95-btn.on { padding: 6px 13px 4px 15px; box-shadow: inset 1px 1px #000000, inset -1px -1px #FFFFFF, inset 2px 2px #808080, inset -2px -2px #DFDFDF; }
+.r95-btn:focus-visible { outline: 1px dotted #000000; outline-offset: -5px; }
+.r95-zoom { position: fixed; z-index: 900; overflow: hidden; white-space: nowrap; padding: 2px 5px; pointer-events: none;
+  background: #800000; background: linear-gradient(90deg, #800000, #CC4040); color: #FFFFFF; font: bold 12px Tahoma, Verdana, Arial, sans-serif; }
+html.minimized { overflow: hidden; }
+html.minimized table.page, html.r95-hide table.page { visibility: hidden; }
+html.taskbar body { padding-bottom: 34px; }
+#r95-taskbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 800; height: 30px; display: flex; align-items: center; gap: 4px; padding: 3px 3px 1px;
+  background: #C0C0C0; box-shadow: inset 0 1px #DFDFDF, inset 0 2px #FFFFFF; }
+#r95-taskbar .r95-btn { height: 24px; min-width: 0; padding: 0 8px; display: flex; align-items: center; gap: 5px; }
+#r95-taskbar .r95-btn:active, #r95-taskbar .r95-btn.on { padding: 1px 7px 0 9px; }
+#r95-start { font-weight: bold; }
+#r95-start .pi { font: bold italic 17px "Times New Roman", serif; color: #990000; line-height: 1; }
+#r95-task { flex: 0 1 230px; min-width: 0; justify-content: flex-start; overflow: hidden; white-space: nowrap; }
+#r95-task span { overflow: hidden; text-overflow: ellipsis; }
+#r95-task.on { background: #FFFFFF repeating-conic-gradient(#C0C0C0 0% 25%, #FFFFFF 0% 50%) 0 0 / 2px 2px; font-weight: bold; }
+#r95-clock { margin-left: auto; height: 24px; padding: 0 12px; display: flex; align-items: center; box-shadow: inset 1px 1px #808080, inset -1px -1px #FFFFFF; }
+#r95-menu { position: fixed; left: 2px; bottom: 29px; z-index: 850; display: flex; }
+#r95-menu .side { width: 24px; display: flex; align-items: flex-end; justify-content: center; background: #800000; background: linear-gradient(0deg, #800000, #CC4040); }
+#r95-menu .side span { padding: 8px 0; writing-mode: vertical-rl; transform: rotate(180deg); color: #FFFFFF; font: bold 17px Arial, sans-serif; }
+#r95-menu .side b { font-weight: normal; color: #FFC8C8; }
+#r95-menu .items { display: flex; flex-direction: column; min-width: 200px; }
+#r95-menu .items a, #r95-menu .items button { display: flex; align-items: center; gap: 9px; padding: 6px 16px 6px 8px; border: 0; background: none;
+  color: #000000; text-align: left; text-decoration: none; font: inherit; cursor: pointer; }
+#r95-menu .items a:hover, #r95-menu .items button:hover, #r95-menu .items a:focus-visible, #r95-menu .items button:focus-visible { background: #800000; color: #FFFFFF; outline: 0; }
+#r95-menu hr { margin: 3px 2px; border: 0; border-top: 1px solid #808080; border-bottom: 1px solid #FFFFFF; }
+#r95-menu svg, .r95-icon svg { flex: none; }
+#r95-icons { position: fixed; left: 8px; top: 10px; z-index: 700; display: flex; flex-direction: column; gap: 12px; }
+.r95-icon { width: 80px; padding: 3px 2px; border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  color: #FFFFFF; font: 12px/1.25 Tahoma, Verdana, Arial, sans-serif; text-align: center; cursor: default; }
+.r95-icon span { padding: 0 2px; border: 1px dotted transparent; text-shadow: 1px 1px 0 #000000; }
+.r95-icon.sel span { background: #800000; border-color: #FFFFFF; text-shadow: none; }
+.r95-icon.sel svg { filter: brightness(.6) sepia(1) saturate(6) hue-rotate(-40deg); }
+.r95-icon:focus { outline: 0; }
+.r95-icon:focus-visible span { border-color: #FFFFFF; }
+#r95-modal { position: fixed; inset: 0; z-index: 950; display: grid; place-items: center; padding: 12px; }
+.r95-dlg { width: 100%; max-width: 420px; }
+.r95-dlg .body { display: flex; gap: 14px; align-items: flex-start; padding: 16px 14px 12px; line-height: 1.45; }
+.r95-dlg .body svg { flex: none; }
+.r95-dlg label { display: flex; gap: 6px; align-items: center; margin: 5px 0; cursor: pointer; }
+.r95-dlg .btns { display: flex; justify-content: center; gap: 8px; padding: 0 0 12px; }
+.r95-dlg .x { width: 16px; height: 14px; padding: 0; border: 0; background: #C0C0C0; cursor: pointer;
+  box-shadow: inset -1px -1px #000000, inset 1px 1px #FFFFFF, inset -2px -2px #808080, inset 2px 2px #DFDFDF; }
+.r95-dlg .x img { display: block; image-rendering: pixelated; }
+.r95-dlg .x:active { box-shadow: inset 1px 1px #000000, inset -1px -1px #FFFFFF, inset 2px 2px #808080, inset -2px -2px #DFDFDF; }
+#r95-off { position: fixed; inset: 0; z-index: 1000; background: #000000; cursor: pointer; }
+#r95-off .text { position: absolute; inset: 0; display: grid; place-items: center; padding: 20px; text-align: center; color: #FF8A00; font: bold 26px/1.35 Arial, sans-serif; }
+.r95-beam { position: fixed; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; z-index: 1001; opacity: 0; pointer-events: none; background: #FFFFFF;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, .9), 0 0 26px 7px rgba(160, 200, 255, .5); }
+.r95-tip { position: fixed; z-index: 960; padding: 4px 7px; border: 1px solid #000000; background: #FFFFE1; color: #000000; white-space: nowrap; pointer-events: none;
+  font: 12px Tahoma, Verdana, Arial, sans-serif; animation: r95-in .3s both; }
+@media (prefers-reduced-motion: reduce) { #boot .splash .bar { animation: none; } }
