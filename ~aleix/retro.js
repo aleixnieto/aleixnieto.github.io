@@ -198,6 +198,7 @@
     startBtn.setAttribute("aria-expanded", "false");
   }
   doc.addEventListener("mousedown", function (e) {
+    clearTip();
     if (menu && !menu.hidden && !menu.contains(e.target) && !startBtn.contains(e.target)) hideMenu();
   });
   doc.addEventListener("keydown", function (e) { if ((e.key === "Escape" || e.key === "Esc") && menu && !menu.hidden) hideMenu(); });
@@ -233,7 +234,7 @@
       busy = false; minimized = true;
       task.classList.remove("on"); task.setAttribute("aria-pressed", "false");
       showIcons(true);
-      if (!state.tipped) { state.tipped = true; save(); tip(task, "Click here to bring the window back", true); }
+      if (!state.tipped && (!menu || menu.hidden)) { state.tipped = true; save(); tip(task, "Click here to bring the window back", true); }
     });
   }
   function restore() {
