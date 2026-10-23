@@ -197,6 +197,12 @@
     }
     #pi:hover, #pi:focus-visible { color: var(--global-theme-color); opacity: 1; text-decoration: none; }
     @media (max-width: 991.98px) { #pi { left: 3px; bottom: 8px; } }  /* stay in the side gutter, clear of the text */
+    /* the beam of an old monitor switching off, after a click on the pi (see the script at the end) */
+    .crt-beam {
+      position: fixed; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; z-index: 2147483647;
+      opacity: 0; pointer-events: none; background: #fff;
+      box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9), 0 0 26px 7px rgba(160, 200, 255, 0.5);
+    }
 
     /* ---------- Pages ---------- */
     .view { scroll-margin-top: calc(57px + 2rem); }
@@ -628,6 +634,51 @@
       window.addEventListener("popstate", fromHash);
       window.addEventListener("hashchange", fromHash);
       fromHash();
+
+      /* The pi: this page switches off like an old monitor, then the old-school page boots (~aleix/retro.js) */
+      var undoOff = null;
+      pi.addEventListener("click", function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;   /* new tab or window: just open it */
+        if (!document.body.animate || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+        e.preventDefault();
+        try { sessionStorage.setItem("aleix95-boot", "1"); } catch (err) {}
+        var href = pi.href;
+        undoOff = switchOff(function () { location.href = href; });
+      });
+      window.addEventListener("pageshow", function () { if (undoOff) { undoOff(); undoOff = null; } });   /* back from 1997 */
+      function switchOff(then) {
+        var body = document.body, root = document.documentElement, kept = [];
+        function keep(el) { kept.push([el, el.getAttribute("style")]); }
+        keep(body); keep(root);
+        body.style.minHeight = "100vh";
+        var b = body.getBoundingClientRect();
+        [navbar, progress, pi, backToTop].forEach(function (el) {   /* pin the fixed bits where they are, or they would jump */
+          if (!el || getComputedStyle(el).position !== "fixed") return;
+          var r = el.getBoundingClientRect();
+          keep(el);
+          el.style.position = "absolute"; el.style.margin = "0"; el.style.right = "auto"; el.style.bottom = "auto";
+          el.style.left = (r.left - b.left) + "px"; el.style.top = (r.top - b.top) + "px"; el.style.width = r.width + "px";
+        });
+        root.style.background = "#000";
+        body.style.transformOrigin = "50% " + (window.innerHeight / 2 - b.top) + "px";
+        var beam = document.createElement("div");
+        beam.className = "crt-beam";
+        root.appendChild(beam);
+        var o = { duration: 440, easing: "ease-in", fill: "forwards" };
+        var squeeze = body.animate([
+          { transform: "scale(1, 1)", filter: "brightness(1)" },
+          { transform: "scale(1, 0.006)", filter: "brightness(2.5)", offset: 0.55 },
+          { transform: "scale(0.002, 0.006)", filter: "brightness(4)" }], o);
+        var glow = beam.animate([
+          { opacity: 0, transform: "scaleX(1)" }, { opacity: 0, transform: "scaleX(1)", offset: 0.45 },
+          { opacity: 1, transform: "scaleX(1)", offset: 0.55 }, { opacity: 1, transform: "scaleX(0.004)", offset: 0.93 },
+          { opacity: 0, transform: "scaleX(0)" }], o);
+        glow.onfinish = then;
+        return function () {
+          squeeze.cancel(); glow.cancel(); root.removeChild(beam);
+          kept.forEach(function (k) { if (k[1] === null) k[0].removeAttribute("style"); else k[0].setAttribute("style", k[1]); });
+        };
+      }
 
       /* For whoever opens the console */
       if (window.console && console.log) console.log("Looking under the hood? Try the π in the bottom-left corner.");
