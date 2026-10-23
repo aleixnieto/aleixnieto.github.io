@@ -11,35 +11,10 @@
   <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADG0lEQVR4nMxXzS9cURT/vfF81ddUkBhaI03RhaQNi2kjMSwI2mCliWh9hXZDauWvwEKkBCWRsCBNRdJuNKMSSkgQGqlWOxbDzDRTC1GTGNNzLzOd13nDTFPz/JI797x3zjvndz/OmXtFeOAVoLYDLwRA5wTuUp+E/wDyZSFfK9R/DAc664B9l05wCX1ACRn0k6jB5cJEQRubgLduAhS8mIK/QxBBgUsZCaEHuB4CbNC7ZAQXJoqbLdLPUwWCM2gcwBORBB2Ug+5KEEiDckgToTBU5ymz29rwyGDgLSEnR9ZGjI7mek1BgU8/11JS8HB6OjACQkgI7rW3Izk/n7c7TU3yDkSR6wtHRiBGRcnaiJGRSNbrAyOQWlSEiMRE9/OtqiqERET4Msfh3h7ud3b61MPpREAEMmpreX9ktfI+LC4O2vJyX+b40NyM29XVSC0uRiCQJRCmViO9spLLn3p78XNjQ0JKgrORHezsYK61FfrBQYTGxnrbCQL8JsCmWxUayuXt8XFsT0xw+e9l8XQsUL/Z34/9zU3kdXfDX8gSyDwbKRuVbXUV384ICCoVMuvqcB7e19QgjZbqRkkJ/olATHo6knSnxfHL6CjvbWtrODAaT8ldQODQZMJcSwv0Q0MIj49HwASyGhr+ONvd5enDmnV5mb9TZ2UhITfXy5Hz5MQtfx4ehnVxEXk9PR4G8lkgrYS0jp4b7UFXl+xHbIl+LC1JP1VJx2KggTze2oK2ogK29XX/NqGmsBBRVLUuAks31yb1hSOLBbOUmvkDA6cb1586kEEbyIVJqm59xNqzrXV0cB1L05tlZRJHTofDy/nXsTHszsycmxVuAqyms/Rj+GU2Y2921suYpaQLmfX1Eh0r3XKYaWxEjFbrcwnceyCR/mwsCwtcNk5NyU6ZZX4exslJXhVZfWel+eT4mI/SYbfLBrDbbDAQ2WzKDDkIvfzUrByuxHnADOVgVtH8r0AhsNhsBhQjwGKzGXgJj7taELHPYqueA98pQ+sRZFDwWhabFyI67b1mdzUSTbh8sMtp6TPgDXuQlCclrue/AQAA//8LWyveAAAABklEQVQDACPY7jkYh1lcAAAAAElFTkSuQmCC" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2NCA2NCc+PHJlY3Qgd2lkdGg9JzY0JyBoZWlnaHQ9JzY0JyByeD0nMTQnIGZpbGw9JyM5OTAwMDAnLz48cGF0aCBmaWxsPScjZmZmJyBkPSdNMjQuNDIgNDUuNSAyMi41NSAzOS44MUgxMi44NUwxMC45OCA0NS41SDUuMDZMMTUuMDkgMTguNUgyMC4yN0wzMC4zNSA0NS41Wk0yMS4xMiAzNS40NSAxNy42OSAyNS4wNSAxNC4yOCAzNS40NVpNNTMuOTggMTguNVY0NS41SDUxLjY4TDM2LjE4IDIyLjQzVjQ1LjVIMzMuODhWMTguNUgzNi4xOEw1MS43MiA0MS41NVYxOC41WicvPjwvc3ZnPg==" />
 
-  <script>
-    /* Theme: follows the system by default; the navbar button cycles system -> light -> dark.
-       Runs in the head so the right theme is set before first paint. */
-    (function () {
-      var root = document.documentElement;
-      var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-      var setting = null;
-      try { setting = localStorage.getItem("theme"); } catch (e) {}
-      if (setting !== "light" && setting !== "dark" && setting !== "system") setting = "system";
-
-      function apply() {
-        var theme = setting === "system" ? (mq && mq.matches ? "dark" : "light") : setting;
-        root.setAttribute("data-theme-setting", setting);
-        root.setAttribute("data-theme", theme);
-      }
-      window.toggleThemeSetting = function () {
-        setting = { system: "light", light: "dark", dark: "system" }[setting];
-        try { localStorage.setItem("theme", setting); } catch (e) {}
-        root.classList.add("transition");
-        window.setTimeout(function () { root.classList.remove("transition"); }, 500);
-        apply();
-      };
-
-      root.classList.add("js");
-      apply();
-      if (mq && mq.addEventListener) mq.addEventListener("change", apply);
-      else if (mq && mq.addListener) mq.addListener(apply);
-    })();
-  </script>
+  <!-- Light/dark theme, shared by every page of the site. Loaded here (not deferred) so the
+       right theme is set before the first paint. -->
+  <script src="theme.js"></script>
+  <script>document.documentElement.classList.add("js");</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -79,8 +54,12 @@
       --global-back-to-top-bg-color: rgba(255, 255, 255, 0.5);
       --global-back-to-top-text-color: #000000;
     }
-    html.transition, html.transition *, html.transition *::before, html.transition *::after {
-      transition: all 750ms !important;
+    /* Short color fade while switching theme (colors only, so nothing moves) */
+    html.theme-transition, html.theme-transition *, html.theme-transition *::before, html.theme-transition *::after {
+      transition: color 300ms ease, background-color 300ms ease, border-color 300ms ease, fill 300ms ease, box-shadow 300ms ease !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.theme-transition, html.theme-transition *, html.theme-transition *::before, html.theme-transition *::after { transition: none !important; }
     }
 
     /* ---------- Base ---------- */
@@ -166,12 +145,12 @@
       color: var(--global-text-color); background-color: inherit;
     }
     #light-toggle:hover { color: var(--global-hover-color); }
+    /* Two states: the moon (go dark) is shown in light mode, the sun (go light) in dark mode */
     #light-toggle svg { display: none; height: 1em; width: 1em; fill: currentColor; overflow: visible; }
-    #light-toggle svg.icon-light { width: 1.125em; }
-    html[data-theme-setting="system"] #light-toggle .icon-system,
-    html[data-theme-setting="light"] #light-toggle .icon-light,
-    html[data-theme-setting="dark"] #light-toggle .icon-dark { display: block; }
-    html:not(.js) .toggle-container { display: none; }
+    #light-toggle svg.icon-sun { width: 1.125em; }
+    html:not([data-theme="dark"]) #light-toggle .icon-moon,
+    html[data-theme="dark"] #light-toggle .icon-sun { display: block; }
+    html:not([data-theme]) .toggle-container { display: none; }
 
     @media (min-width: 576px) {
       .navbar { flex-flow: row nowrap; justify-content: flex-start; }
@@ -208,6 +187,16 @@
     }
     #back-to-top svg { width: 20px; height: 20px; fill: currentColor; }
     #back-to-top.hidden { opacity: 0; pointer-events: none; }
+
+    /* Easter egg */
+    #pi {
+      position: fixed; left: 16px; bottom: 12px; z-index: 10;
+      font-family: "Times New Roman", Times, serif; font-size: 18px; line-height: 1;
+      color: var(--global-text-color-light); opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    #pi:hover, #pi:focus-visible { color: var(--global-theme-color); opacity: 1; text-decoration: none; }
+    @media (max-width: 991.98px) { #pi { left: 3px; bottom: 8px; } }  /* stay in the side gutter, clear of the text */
 
     /* ---------- Pages ---------- */
     .view { scroll-margin-top: calc(57px + 2rem); }
@@ -302,7 +291,8 @@
   <!-- ============================================================
        HOW TO PUBLISH
        1. Keep this file named  index.html
-       2. Put it together with squared.jpg in a repo named exactly
+       2. Put it together with theme.js, squared.jpg, the ~aleix folder
+          and the empty .nojekyll file in a repo named exactly
           aleixnieto.github.io  (in the repo root)
        3. Your site goes live at  https://aleixnieto.github.io/
   ============================================================ -->
@@ -328,17 +318,9 @@
             <li class="nav-item"><a class="nav-link" href="#publications" data-view="publications">publications</a></li>
             <li class="nav-item"><a class="nav-link" href="#teaching" data-view="teaching">teaching</a></li>
             <li class="toggle-container">
-              <button id="light-toggle" type="button" title="Change theme" aria-label="Change theme">
-                <svg class="icon-system" viewBox="0 0 512 512" aria-hidden="true">
-                  <defs>
-                    <clipPath id="half-left"><rect x="-64" y="-64" width="304" height="640" /></clipPath>
-                    <clipPath id="half-right"><rect x="272" y="-64" width="304" height="640" /></clipPath>
-                  </defs>
-                  <path clip-path="url(#half-left)" d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0z" />
-                  <g clip-path="url(#half-right)"><path transform="translate(-32 0)" d="M288-32c8.4 0 16.3 4.4 20.6 11.7L364.1 72.3 468.9 46c8.2-2 16.9 .4 22.8 6.3S500 67 498 75.1l-26.3 104.7 92.7 55.5c7.2 4.3 11.7 12.2 11.7 20.6s-4.4 16.3-11.7 20.6L471.7 332.1 498 436.8c2 8.2-.4 16.9-6.3 22.8S477 468 468.9 466l-104.7-26.3-55.5 92.7c-4.3 7.2-12.2 11.7-20.6 11.7s-16.3-4.4-20.6-11.7L211.9 439.7 107.2 466c-8.2 2-16.8-.4-22.8-6.3S76 445 78 436.8l26.2-104.7-92.6-55.5C4.4 272.2 0 264.4 0 256s4.4-16.3 11.7-20.6L104.3 179.9 78 75.1c-2-8.2 .3-16.8 6.3-22.8S99 44 107.2 46l104.7 26.2 55.5-92.6 1.8-2.6c4.5-5.7 11.4-9.1 18.8-9.1zm0 144a144 144 0 1 0 0 288 144 144 0 1 0 0-288zm0 240a96 96 0 1 1 0-192 96 96 0 1 1 0 192z" /></g>
-                </svg>
-                <svg class="icon-dark" viewBox="0 0 512 512" aria-hidden="true"><path d="M256 0C114.6 0 0 114.6 0 256S114.6 512 256 512c68.8 0 131.3-27.2 177.3-71.4 7.3-7 9.4-17.9 5.3-27.1s-13.7-14.9-23.8-14.1c-4.9 .4-9.8 .6-14.8 .6-101.6 0-184-82.4-184-184 0-72.1 41.5-134.6 102.1-164.8 9.1-4.5 14.3-14.3 13.1-24.4S322.6 8.5 312.7 6.3C294.4 2.2 275.4 0 256 0z" /></svg>
-                <svg class="icon-light" viewBox="0 0 576 512" aria-hidden="true"><path d="M288-32c8.4 0 16.3 4.4 20.6 11.7L364.1 72.3 468.9 46c8.2-2 16.9 .4 22.8 6.3S500 67 498 75.1l-26.3 104.7 92.7 55.5c7.2 4.3 11.7 12.2 11.7 20.6s-4.4 16.3-11.7 20.6L471.7 332.1 498 436.8c2 8.2-.4 16.9-6.3 22.8S477 468 468.9 466l-104.7-26.3-55.5 92.7c-4.3 7.2-12.2 11.7-20.6 11.7s-16.3-4.4-20.6-11.7L211.9 439.7 107.2 466c-8.2 2-16.8-.4-22.8-6.3S76 445 78 436.8l26.2-104.7-92.6-55.5C4.4 272.2 0 264.4 0 256s4.4-16.3 11.7-20.6L104.3 179.9 78 75.1c-2-8.2 .3-16.8 6.3-22.8S99 44 107.2 46l104.7 26.2 55.5-92.6 1.8-2.6c4.5-5.7 11.4-9.1 18.8-9.1zm0 144a144 144 0 1 0 0 288 144 144 0 1 0 0-288zm0 240a96 96 0 1 1 0-192 96 96 0 1 1 0 192z" /></svg>
+              <button id="light-toggle" type="button" title="Switch to dark theme" aria-label="Switch to dark theme">
+                <svg class="icon-moon" viewBox="0 0 512 512" aria-hidden="true"><path d="M256 0C114.6 0 0 114.6 0 256S114.6 512 256 512c68.8 0 131.3-27.2 177.3-71.4 7.3-7 9.4-17.9 5.3-27.1s-13.7-14.9-23.8-14.1c-4.9 .4-9.8 .6-14.8 .6-101.6 0-184-82.4-184-184 0-72.1 41.5-134.6 102.1-164.8 9.1-4.5 14.3-14.3 13.1-24.4S322.6 8.5 312.7 6.3C294.4 2.2 275.4 0 256 0z" /></svg>
+                <svg class="icon-sun" viewBox="0 0 576 512" aria-hidden="true"><path d="M288-32c8.4 0 16.3 4.4 20.6 11.7L364.1 72.3 468.9 46c8.2-2 16.9 .4 22.8 6.3S500 67 498 75.1l-26.3 104.7 92.7 55.5c7.2 4.3 11.7 12.2 11.7 20.6s-4.4 16.3-11.7 20.6L471.7 332.1 498 436.8c2 8.2-.4 16.9-6.3 22.8S477 468 468.9 466l-104.7-26.3-55.5 92.7c-4.3 7.2-12.2 11.7-20.6 11.7s-16.3-4.4-20.6-11.7L211.9 439.7 107.2 466c-8.2 2-16.8-.4-22.8-6.3S76 445 78 436.8l26.2-104.7-92.6-55.5C4.4 272.2 0 264.4 0 256s4.4-16.3 11.7-20.6L104.3 179.9 78 75.1c-2-8.2 .3-16.8 6.3-22.8S99 44 107.2 46l104.7 26.2 55.5-92.6 1.8-2.6c4.5-5.7 11.4-9.1 18.8-9.1zm0 144a144 144 0 1 0 0 288 144 144 0 1 0 0-288zm0 240a96 96 0 1 1 0-192 96 96 0 1 1 0 192z" /></svg>
               </button>
             </li>
           </ul>
@@ -548,6 +530,11 @@
     </section>
   </main>
 
+  <!-- Easter egg: the little pi in the bottom-left corner (as in "The Net", 1995) opens the old-school
+       version of this page in ~aleix/. GitHub Pages only serves that folder if the empty .nojekyll
+       file is in the root of the repository. -->
+  <a id="pi" href="~aleix/" aria-label="Old-school version of this page">&pi;</a>
+
   <button id="back-to-top" class="hidden" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" /></svg></button>
 
   <script>
@@ -559,6 +546,8 @@
       var menu = document.getElementById("navbarNav");
       var progress = document.getElementById("progress");
       var backToTop = document.getElementById("back-to-top");
+      var pi = document.getElementById("pi");
+      var retro = { about: "~aleix/", news: "~aleix/news.htm", publications: "~aleix/pubs.htm", teaching: "~aleix/teaching.htm" };
 
       /* Mobile menu */
       function setMenu(open) {
@@ -568,8 +557,16 @@
       }
       toggler.addEventListener("click", function () { setMenu(!menu.classList.contains("show")); });
 
-      /* Theme toggle */
-      document.getElementById("light-toggle").addEventListener("click", function () { window.toggleThemeSetting(); });
+      /* Theme toggle (logic in theme.js) */
+      var themeButton = document.getElementById("light-toggle");
+      if (window.siteTheme) {
+        themeButton.addEventListener("click", function () { window.siteTheme.toggle(); });
+        window.siteTheme.onChange(function (theme) {
+          var label = theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+          themeButton.title = label;
+          themeButton.setAttribute("aria-label", label);
+        });
+      }
 
       /* Keep the content and the scroll bar just below the fixed navbar, as al-folio does */
       function fitNavbar() {
@@ -612,6 +609,7 @@
           if (current) links[j].setAttribute("aria-current", "page"); else links[j].removeAttribute("aria-current");
         }
         brand.hidden = id === "about";
+        pi.href = retro[id];   /* the pi opens the old-school version of the same page */
         setMenu(false);
         fitNavbar();
         window.scrollTo(0, 0);
@@ -630,6 +628,9 @@
       window.addEventListener("popstate", fromHash);
       window.addEventListener("hashchange", fromHash);
       fromHash();
+
+      /* For whoever opens the console */
+      if (window.console && console.log) console.log("Looking under the hood? Try the π in the bottom-left corner.");
     })();
   </script>
 </body>
