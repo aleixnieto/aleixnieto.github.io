@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--
+  The old-school edition of Aleix Nieto Juscafresa's home page.
+  Plain HTML 3.2: no frameworks, no web fonts, no build step.
+  The modern site lives one directory up.
+-->
+<HTML LANG="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
+<META NAME="author" CONTENT="Aleix Nieto Juscafresa">
+<META NAME="description" CONTENT="Home page of Aleix Nieto Juscafresa, PhD student in machine learning at Uppsala University, working on machine learning for breast cancer.">
+<META NAME="keywords" CONTENT="Aleix Nieto Juscafresa, machine learning, breast cancer, medical imaging, multimodal learning, mammography, Uppsala University, WASP">
+<TITLE>Aleix Nieto Juscafresa - News</TITLE>
+<SCRIPT LANGUAGE="JavaScript" SRC="../theme.js"></SCRIPT>
+<STYLE TYPE="text/css">
+<!--
+/* The pages are HTML 3.2. These rules only tidy the boxes, keep things
+   comfortable on today's screens and follow the site-wide light/dark setting. */
+body { margin: 14px 8px 28px; font-family: "Times New Roman", Times, serif; }
+table.page { max-width: 100%; }
+img.banner { display: block; max-width: 100%; height: auto; }
+td.nav { padding: 14px 10px 0 4px; font-size: 17px; line-height: 1.9; }
+td.nav a { text-decoration: none; }
+td.nav a:hover { text-decoration: underline; }
+td.main { padding-top: 14px; }
+table.win td { border: 0; }
+table.win table { color: inherit; }
+td.bar { padding: 3px 8px; }
+td.pane { padding: 8px 14px 10px; }
+td.pane > :last-child { margin-bottom: 4px; }
+img.photo { image-rendering: pixelated; }
+pre { overflow-x: auto; }
+td.foot { padding-top: 4px; font-size: 13px; text-align: center; }
+form.lights { margin: 8px 0 0; }
+html:not([data-theme]) form.lights { display: none; }
+html[data-theme="dark"] { color-scheme: dark; }
+@media (max-width: 640px) {
+  table.page, table.page > tbody > tr > td { display: block; width: auto !important; }
+  td.nav { padding: 10px 2px 0; line-height: 1.6; }
+  td.nav br { display: none; }
+  td.nav nobr { display: inline-block; margin-right: 14px; }
+  table.card td { display: block; }
+  table.card td.gap { display: none; }
+  table.card img.photo { margin-bottom: 10px; }
+  pre { font-size: 2.6vw; }
+  td.pane { overflow-wrap: anywhere; }
+}
+/* Red desktop: Windows 95 windows in Uppsala red on the cloudy Midnight background */
+body { background-color: #101622; }
+td.nav { font-family: Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif; font-size: 13px; line-height: 1.2; padding: 14px 14px 0 0; }
+td.nav img, td.nav br { display: none; }
+td.nav nobr { display: block; margin: 0 0 6px; padding: 6px 10px; background: #C0C0C0; color: #000000;
+  border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; box-shadow: 1px 1px 0 #000000; }
+td.nav b { font-weight: normal; }
+td.nav nobr a:link, td.nav nobr a:visited { color: #000000; }
+td.nav nobr a:hover { text-decoration: underline; }
+td.nav nobr.cur { background: #D4D0C8; border-color: #808080 #FFFFFF #FFFFFF #808080; box-shadow: inset 1px 1px 0 #000000; }
+td.nav nobr.cur b { font-weight: bold; }
+td.nav nobr.modern { margin-top: 18px; }
+table.win { background: #C0C0C0; color: #000000; border: 2px solid; border-color: #DFDFDF #000000 #000000 #DFDFDF;
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #808080; border-collapse: separate; border-spacing: 3px; }
+table.win td.bar { background: #800000; background: linear-gradient(90deg, #800000, #CC4040); padding: 3px 6px; }
+td.bar font { font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 13px; }
+table.win td.pane { background: #FFFFFF; border: 2px solid; border-color: #808080 #FFFFFF #FFFFFF #808080; padding: 10px 14px; }
+table.win a:link { color: #0000FF; }
+table.win a:visited { color: #800080; }
+td.foot { color: #FFFFFF; font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 12px; }
+td.foot a:link, td.foot a:visited { color: #FFFFFF; }
+table.wedge { display: none; }
+form.lights input { font: 13px Tahoma, Verdana, Arial, sans-serif; color: #000000; background: #C0C0C0; padding: 4px 14px;
+  border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; box-shadow: 1px 1px 0 #000000; }
+@media (max-width: 640px) {
+  td.nav nobr { display: inline-block; margin: 0 6px 6px 0; }
+  td.nav nobr.modern { margin-top: 0; }
+}
+html[data-theme="dark"] table.win { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
+html[data-theme="dark"] table.win td.bar { background: #800000; }
+html[data-theme="dark"] table.win td.pane { background: #000000; border-color: #FFFFFF; }
+html[data-theme="dark"] table.win a:link { color: #FFFF00; }
+html[data-theme="dark"] table.win a:visited { color: #00FFFF; }
+html[data-theme="dark"] td.nav nobr { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
+html[data-theme="dark"] td.nav nobr a:link, html[data-theme="dark"] td.nav nobr a:visited { color: #FFFFFF; }
+html[data-theme="dark"] td.nav nobr.cur { background: #800000; }
+html[data-theme="dark"] form.lights input { background: #000000; color: #FFFFFF; border-color: #FFFFFF; box-shadow: none; }
+-->
+</STYLE>
+</HEAD>
+
+<BODY BACKGROUND="bg.jpg" BGCOLOR="#101622" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<TABLE WIDTH="760" BORDER="0" CELLPADDING="0" CELLSPACING="0" ALIGN="center" CLASS="page">
+<TR><TD COLSPAN="2"><IMG SRC="banner.png" WIDTH="760" HEIGHT="100" ALT="Aleix Nieto Juscafresa" CLASS="banner"></TD></TR>
+<TR><TD COLSPAN="2">
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0" CLASS="wedge" role="presentation" aria-hidden="true">
+<TR><TD BGCOLOR="#000000" HEIGHT="6"></TD><TD BGCOLOR="#111111" HEIGHT="6"></TD><TD BGCOLOR="#222222" HEIGHT="6"></TD><TD BGCOLOR="#333333" HEIGHT="6"></TD><TD BGCOLOR="#444444" HEIGHT="6"></TD><TD BGCOLOR="#555555" HEIGHT="6"></TD><TD BGCOLOR="#666666" HEIGHT="6"></TD><TD BGCOLOR="#777777" HEIGHT="6"></TD><TD BGCOLOR="#888888" HEIGHT="6"></TD><TD BGCOLOR="#999999" HEIGHT="6"></TD><TD BGCOLOR="#AAAAAA" HEIGHT="6"></TD><TD BGCOLOR="#BBBBBB" HEIGHT="6"></TD><TD BGCOLOR="#CCCCCC" HEIGHT="6"></TD><TD BGCOLOR="#DDDDDD" HEIGHT="6"></TD><TD BGCOLOR="#EEEEEE" HEIGHT="6"></TD><TD BGCOLOR="#FFFFFF" HEIGHT="6"></TD></TR>
+</TABLE>
+</TD></TR>
+<TR>
+<TD WIDTH="150" VALIGN="top" CLASS="nav">
+<NOBR><IMG SRC="ball.gif" WIDTH="14" HEIGHT="14" ALT="-" ALIGN="absmiddle"> <A HREF="index.html"><B>About</B></A></NOBR><BR>
+<NOBR CLASS="cur"><IMG SRC="ball-red.gif" WIDTH="14" HEIGHT="14" ALT="&gt;" ALIGN="absmiddle"> <B CLASS="here">News</B></NOBR><BR>
+<NOBR><IMG SRC="ball.gif" WIDTH="14" HEIGHT="14" ALT="-" ALIGN="absmiddle"> <A HREF="pubs.htm"><B>Publications</B></A></NOBR><BR>
+<NOBR><IMG SRC="ball.gif" WIDTH="14" HEIGHT="14" ALT="-" ALIGN="absmiddle"> <A HREF="teaching.htm"><B>Teaching</B></A></NOBR><BR>
+<BR>
+<NOBR CLASS="modern"><IMG SRC="ball.gif" WIDTH="14" HEIGHT="14" ALT="-" ALIGN="absmiddle"> <A HREF="../#news"><B>Modern version</B></A></NOBR>
+</TD>
+<TD VALIGN="top" CLASS="main">
+
+<TABLE WIDTH="100%" BORDER="2" CELLPADDING="0" CELLSPACING="0" BGCOLOR="#C0C0C0" CLASS="win">
+<TR><TD BGCOLOR="#800000" CLASS="bar"><FONT FACE="Arial, Helvetica" SIZE="2" COLOR="#FFFFFF"><B>What's new</B></FONT></TD></TR>
+<TR><TD CLASS="pane">
+<DL>
+<DT><B>July 2026</B>
+<DD>Attended the
+<A HREF="https://www.ellismcr.org/">ELLIS Summer School on Machine Learning for Healthcare and Biology</A>
+in Manchester (<NOBR>7-9</NOBR> July).
+<P>
+<DT><B>June 2026</B>
+<DD>Presented our work on learned preconditioners for GMRES at
+<A HREF="https://nasca26.org/">NASCA 2026</A> in Kalamata, Greece.
+[<A HREF="../Kalamata_presentation.pdf">slides</A>, PDF, 672K]
+<P>
+<DT><B>January 2026</B>
+<DD>Started my PhD in Machine Learning at Uppsala University (26 January).
+<P>
+<DT><B>December 2025</B>
+<DD>Attended the
+<A HREF="https://sites.google.com/g.harvard.edu/aicceurips">AICC: Workshop on AI for Climate and Conservation</A>,
+co-located with EurIPS 2025 in Copenhagen.
+</DL>
+</TD></TR>
+</TABLE>
+<BR>
+
+</TD>
+</TR>
+<TR><TD COLSPAN="2" CLASS="foot">
+You found the old-school version of this site.
+<A HREF="../#news">Back to the modern one</A>.<BR>
+Last modified:
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+document.write(document.lastModified);
+// -->
+</SCRIPT>
+<NOSCRIPT>October 2026</NOSCRIPT>
+&middot; This page is best viewed with any browser.
+<FORM NAME="lights" CLASS="lights">
+<INPUT TYPE="button" NAME="b" VALUE="Lights off" onClick="siteTheme.toggle()">
+</FORM>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (window.siteTheme) siteTheme.onChange(function (t) {
+  document.lights.b.value = (t == "dark") ? "Lights on" : "Lights off";
+});
+// -->
+</SCRIPT>
+</TD></TR>
+</TABLE>
+
+</BODY>
+</HTML>
