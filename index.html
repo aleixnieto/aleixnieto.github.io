@@ -239,6 +239,31 @@
     .table th { font-weight: bold; }
     .news th { white-space: nowrap; }
     .news .news-tag { display: block; font-size: 0.85rem; font-weight: 300; color: var(--global-text-color-light); }
+    /* A news item with a photo: text on the left and a thumbnail on the right. The thumbnail is as
+       tall as three lines of text (96 x 72px), so the row is spaced like every other row. With the
+       mouse over it the photo grows in place, on top of the page, and nothing else moves.
+       On phones the photo goes below the text, already at a larger size. */
+    .news .news-media { display: flex; align-items: flex-start; gap: 1.5rem; }
+    .news .news-media, .news .news-media > div { color: inherit; }
+    .news .news-media > div { flex: 1 1 auto; }
+    .news .news-photo { position: relative; flex: 0 0 96px; height: 72px; }
+    .news .news-photo img {
+      position: absolute; top: 0; right: 0; display: block; width: 96px; max-width: none; height: auto;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: width 0.22s ease, box-shadow 0.22s ease;
+    }
+    @media (hover: hover) and (min-width: 576px) {
+      .news .news-photo:hover img {
+        width: 336px; transition-delay: 0.08s;
+        box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.28), 0 2px 8px 0 rgba(0, 0, 0, 0.18);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) { .news .news-photo img { transition: none; } }
+    @media (max-width: 575.98px) {
+      .news .news-media { flex-direction: column; gap: 0.75rem; }
+      .news .news-photo { flex: 0 0 auto; width: 100%; max-width: 260px; height: auto; margin-bottom: 0.25rem; }
+      .news .news-photo img { position: static; width: 100%; }
+    }
 
     /* Publications (timeline) */
     .pub { display: grid; grid-template-columns: 48px 1fr; column-gap: 26px; }
@@ -404,7 +429,12 @@
             <!-- Sep 2026 -->
             <tr>
               <th scope="row" style="width: 20%">Sep 2026<span class="news-tag">Study Trip</span></th>
-              <td>Went to Boston and New York on a WASP study trip. Presented a <a href="MIT_poster.pdf" target="_blank" rel="noopener">poster</a> on realistic breast phantoms and multimodal AI for breast cancer at MIT, and visited the MIT Media Lab, Boston University, NYU and Columbia University.</td>
+              <td>
+                <div class="news-media">
+                  <div>Went to Boston and New York on a WASP study trip. Presented a <a href="MIT_poster.pdf" target="_blank" rel="noopener">poster</a> on realistic breast phantoms and multimodal AI for breast cancer at MIT, and visited the MIT Media Lab, Boston University, NYU and Columbia University.</div>
+                  <a class="news-photo" href="MIT_poster_photo.jpg" target="_blank" rel="noopener"><img class="rounded" src="MIT_poster_photo_thumb.jpg" width="720" height="540" alt="Aleix Nieto Juscafresa next to his poster" /></a>
+                </div>
+              </td>
             </tr>
 
             <!-- Jul 2026 -->
