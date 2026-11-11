@@ -1,8 +1,9 @@
 /* The old-school pages come alive here.
    - The boot screen you get when you arrive through the pi on the modern page.
-   - The visitor counter in the welcome box. It counts each browser once, and only on these
-     old-school pages. The count is kept by Abacus (abacus.jasoncameron.dev), a free counting
-     service. No cookies, and the page address is not sent along.
+   - The visitor counter in the welcome box. It counts every visit to these old-school pages:
+     coming in from outside counts, moving between the four pages or reloading does not.
+     The count is kept by Abacus (abacus.jasoncameron.dev), a free counting service. No
+     cookies, and the page address is not sent along.
    - A working Windows 95 title bar. Minimize shrinks the page into a taskbar with a little
      desktop, maximize makes it full width, close opens the Shut Down box.
    Without JavaScript the pages still work, they just stay still. */
@@ -47,6 +48,10 @@
   };
 
   /* ---------- visitor counter ---------- */
+  /* Every visit gets the next number from Abacus. A visit starts when someone comes in from
+     outside these pages: through the pi on the modern page, from a link somewhere else, or in a
+     new tab. The number is kept for the visit (sessionStorage), so a click between the four
+     pages, a reload or the Back button shows it again without counting twice. */
   var odo = doc.getElementById("odo"), cnt = doc.getElementById("cnt");
   function showCount(n) {
     var s = String(n), cells = "";
@@ -56,11 +61,28 @@
     cnt.setAttribute("aria-label", "You are visitor number " + n);
   }
   function noCount() { cnt.textContent = "Thanks for stopping by."; }
+  function showLast(n) { if (n > 0) showCount(n); else noCount(); }   /* the number this visit already has, if any */
+  function folder(path) { try { path = decodeURI(path); } catch (e) {} return path.replace(/[^\/]*$/, ""); }
+  function oldSchool(url) {   /* is this the address of one of the old-school pages? */
+    var a = doc.createElement("a");
+    a.href = url;
+    return a.host === location.host && folder(a.pathname) === folder(location.pathname);
+  }
+  function cameIn() {   /* did this page load bring the visitor in from outside? */
+    try {
+      var perf = window.performance, nav = perf && perf.getEntriesByType ? perf.getEntriesByType("navigation")[0] : null;
+      var type = nav ? nav.type : (perf && perf.navigation ? ["navigate", "reload", "back_forward"][perf.navigation.type] : "navigate");
+      return type === "navigate" && !!doc.referrer && !oldSchool(doc.referrer);
+    } catch (e) { return false; }
+  }
   if (odo && cnt) {
-    var mine = parseInt(get(local, "aleix95-visitor") || get(session, "aleix95-visitor") || "", 10);
+    /* The first version kept the number in localStorage for good, so whoever came back saw
+       the number of their first visit forever. Clear that leftover. */
+    try { if (local) local.removeItem("aleix95-visitor"); } catch (e) {}
+    var mine = parseInt(get(session, "aleix95-visitor") || "", 10);
     var robot = navigator.webdriver || /bot|crawl|spider|slurp|preview|lighthouse|headless/i.test(navigator.userAgent || "");
-    if (mine > 0) showCount(mine);
-    else if (robot || !window.fetch) noCount();
+    if (mine > 0 && !cameIn()) showCount(mine);
+    else if (robot || !window.fetch) showLast(mine);
     else {
       var ctl = window.AbortController ? new AbortController() : null;
       var late = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
@@ -70,10 +92,10 @@
           clearTimeout(late);
           var n = parseInt(d && d.value, 10);
           if (!(n > 0)) throw new Error("no count");
-          put(local || session, "aleix95-visitor", String(n));
+          put(session, "aleix95-visitor", String(n));
           showCount(n);
         })
-        .catch(function () { clearTimeout(late); noCount(); });
+        .catch(function () { clearTimeout(late); showLast(mine); });
     }
   }
 
