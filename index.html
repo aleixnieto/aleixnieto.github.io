@@ -212,7 +212,7 @@
     .js .view.active { display: block; }
 
     .post-description { margin-bottom: 1.5rem; }
-    #teaching .post-header { margin-bottom: 1.5rem; }
+    #about .post-header, #teaching .post-header { margin-bottom: 1.5rem; }
 
     /* About */
     .profile { width: 100%; }
@@ -266,14 +266,15 @@
     }
 
     /* Publications (timeline) */
+    .pubs { --pub-pad: 13px; }   /* space above and below each entry */
     .pub { display: grid; grid-template-columns: 48px 1fr; column-gap: 26px; }
     .pub-year {
-      padding-top: 21px; text-align: right; font-size: 0.86rem; line-height: 1.596rem;
+      padding-top: var(--pub-pad); text-align: right; font-size: 0.86rem; line-height: 1.596rem;
       color: var(--global-text-color-light); font-variant-numeric: tabular-nums;
     }
-    .pub-main { position: relative; padding: 21px 0 21px 30px; border-left: 1px solid var(--global-divider-color); }
+    .pub-main { position: relative; padding: var(--pub-pad) 0 var(--pub-pad) 30px; border-left: 1px solid var(--global-divider-color); }
     .pub-main::before {
-      content: ""; position: absolute; left: -6px; top: calc(21px + 0.798rem - 5.5px);
+      content: ""; position: absolute; left: -6px; top: calc(var(--pub-pad) + 0.798rem - 5.5px);
       width: 11px; height: 11px; border-radius: 50%; background: var(--global-theme-color);
       box-shadow: 0 0 0 4px var(--global-bg-color); transition: transform 0.25s ease;
     }
@@ -282,19 +283,30 @@
     .pub:first-child .pub-main::before { top: calc(5px + 0.798rem - 5.5px); }
     .pub:last-child .pub-main { padding-bottom: 4px; }
 
-    .pub-title { margin: 0 0 6px; font-size: 1.14rem; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+    .pub-title { margin: 0 0 4px; font-size: 1.14rem; font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
     .pub-title a { color: var(--global-text-color); }
     .pub-title a:hover { color: var(--global-theme-color); text-decoration: none; }
     .pub-authors { font-size: 0.97rem; color: var(--global-text-color-soft); }
     .pub-authors .me { font-weight: 700; color: var(--global-text-color); }
     .pub-venue { margin-top: 4px; font-size: 0.93rem; font-style: italic; color: var(--global-text-color-soft); }
-    .pub-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 12px; }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 10px; }
     .pub-links a {
       padding: 3px 14px; font-size: 0.81rem; font-weight: 500; line-height: 1.5;
       color: var(--global-theme-color); border: 1px solid var(--global-line-strong); border-radius: 999px;
       transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.18s ease;
     }
     .pub-links a:hover { border-color: var(--global-theme-color); background-color: var(--global-theme-soft); text-decoration: none; transform: translateY(-1px); }
+
+    /* Once the page is at its full width (930px), the links sit to the right of the authors and
+       venue instead of on a line of their own. Each entry is a line shorter, so more of the list
+       fits on one screen. Below that width the links stay under the text. A long row of links
+       wraps onto a second line, still right-aligned. */
+    @media (min-width: 930px) {
+      .pub-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.25rem; align-items: center; }
+      .pub-title { grid-column: 1 / -1; }
+      .pub-authors, .pub-venue { grid-column: 1; }
+      .pub-links { grid-column: 2; grid-row: 2 / span 2; justify-content: flex-end; max-width: 23rem; margin-top: 0; }
+    }
 
     @media (max-width: 575.98px) {
       .pub { grid-template-columns: 1fr; padding-bottom: 22px; border-bottom: 1px solid var(--global-divider-color); }
@@ -314,6 +326,18 @@
     .courses-head + .courses { margin-top: 0; }
     .course-item { margin-bottom: 0.6rem; }
     .course-title { margin: 0; font-size: 1.1rem; font-weight: 400; line-height: 1.3; }
+    /* Each title leads to the course page at uu.se. The small arrow marks it as a link out. */
+    .course-title a, .course-title a span { color: var(--global-text-color); }
+    .course-title a:hover, .course-title a:hover span,
+    .course-title a:focus-visible, .course-title a:focus-visible span { color: var(--global-theme-color); text-decoration: none; }
+    .course-title .nw { white-space: nowrap; }   /* keeps the arrow on the same line as the last word */
+    .course-title .ext {
+      width: 0.6em; height: 0.6em; margin-left: 0.4em; vertical-align: 0.02em; overflow: visible;
+      fill: none; stroke: var(--global-text-color-light); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.18s ease, stroke 0.18s ease;
+    }
+    .course-title a:hover .ext, .course-title a:focus-visible .ext { stroke: var(--global-theme-color); transform: translate(2px, -2px); }
+    @media (prefers-reduced-motion: reduce) { .course-title .ext { transition: none; } }
     .course-meta { margin: 0; font-size: 0.85rem; line-height: 1.35; color: var(--global-text-color-light); }
     .course-meta.grad { color: var(--global-theme-color); }
   </style>
@@ -366,7 +390,6 @@
     <section class="view post active" id="about">
       <header class="post-header">
         <h1 class="post-title"><span class="font-weight-bold">Aleix</span> Nieto Juscafresa</h1>
-        <p class="desc">PhD Student in Machine Learning.</p>
       </header>
 
       <article>
@@ -552,19 +575,19 @@
         <h2 class="courses-head">Courses</h2>
         <div class="courses">
           <div class="course-item">
-            <h3 class="course-title">Advanced Probabilistic Machine Learning</h3>
+            <h3 class="course-title"><a href="https://www.uu.se/en/study/course?query=1RT705" target="_blank" rel="noopener" title="Course page at Uppsala University">Advanced Probabilistic Machine <span class="nw">Learning<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4.2 3H9v4.8" /></svg></span></a></h3>
             <p class="course-meta grad">Graduate</p>
           </div>
           <div class="course-item">
-            <h3 class="course-title">Statistical Machine Learning</h3>
+            <h3 class="course-title"><a href="https://www.uu.se/en/study/course?query=1RT700" target="_blank" rel="noopener" title="Course page at Uppsala University">Statistical Machine <span class="nw">Learning<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4.2 3H9v4.8" /></svg></span></a></h3>
             <p class="course-meta grad">Graduate</p>
           </div>
           <div class="course-item">
-            <h3 class="course-title">Introduction to Machine Learning</h3>
+            <h3 class="course-title"><a href="https://www.uu.se/en/study/course?query=1DL034" target="_blank" rel="noopener" title="Course page at Uppsala University">Introduction to Machine <span class="nw">Learning<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4.2 3H9v4.8" /></svg></span></a></h3>
             <p class="course-meta">Undergraduate</p>
           </div>
           <div class="course-item">
-            <h3 class="course-title">Scientific Computing for Data Analysis</h3>
+            <h3 class="course-title"><a href="https://www.uu.se/en/study/course?query=1TD352" target="_blank" rel="noopener" title="Course page at Uppsala University">Scientific Computing for Data <span class="nw">Analysis<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4.2 3H9v4.8" /></svg></span></a></h3>
             <p class="course-meta">Undergraduate</p>
           </div>
         </div>
